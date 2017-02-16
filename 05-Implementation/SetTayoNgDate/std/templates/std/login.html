@@ -4,6 +4,14 @@
 
 {% block content %}
 <h2>Login</h2>
+    
+    {% if fail == True %}
+    <p>Username or Password is incorrect</p>
+    {% else %}
+    <p></p>
+    {% endif %}
+
+
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         <label for="uname">Username: </label>
