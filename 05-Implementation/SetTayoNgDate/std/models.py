@@ -65,6 +65,12 @@ class Schedule(models.Model):
     def add_sched(cls, user_id, day, hour):
         Schedule(user_id=user_id, day=day, hour=hour).save()
 
+    @classmethod
+    def delete_sched(cls, sched_id):
+        sched =  Schedule.objects.get(id=sched_id)
+        sched.delete()
+
+
 class MeetupSchedule(models.Model):
     # todo, make foreign keys
     leader_id = models.IntegerField()
