@@ -32,6 +32,14 @@ class User(models.Model):
         return User.objects.all()
 
     @classmethod
+    def authenticate(cls, username, password):
+        try:
+            user = User.objects.get(username=username)
+            return user.password == password
+        except:
+            return False
+
+    @classmethod
     def create(cls, username, password):
         User(username=username, password=password).save()
 
