@@ -44,6 +44,8 @@ class User(models.Model):
         User(username=username, password=password).save()
 
 
+
+
 class Schedule(models.Model):
     # todo, make foreign keysss
     user_id = models.IntegerField()
@@ -62,5 +64,30 @@ class Schedule(models.Model):
     @classmethod
     def add_sched(cls, user_id, day, hour):
         Schedule(user_id=user_id, day=day, hour=hour).save()
+
+class MeetupSchedule(models.Model):
+    # todo, make foreign keys
+    leader_id = models.IntegerField()
+    date = models.IntegerField()
+    month = models.IntegerField()
+    year = models.IntegerField()
+    start_hour = models.IntegerField()
+    start_minute = models.IntegerField()
+    end_hour = models.IntegerField()
+    end_minute = models.IntegerField()
+
+    def __str__(self):
+        return 'leader_id:{} {}/{}/{} {}:{} to {}:{}'.format(self.leader_id, self.date, self.month, self.year, self.start_hour, self.start_minute, self.end_hour, self.end_minute)
+
+    @classmethod
+    def all(cls):
+        return MeetupSchedule.objects.all()
+
+    @classmethod
+    def add_meetup_sched(cls, leader_id, date, month, year, start_hour, start_minute, end_hour, end_minute):
+        MeetupSchedule(leader_id=leader_id, date=date, month=month, year=year, start_hour=start_hour, start_minute=start_minute, end_hour=end_hour, end_minute=end_minute).save()
+
+
+
 
 
