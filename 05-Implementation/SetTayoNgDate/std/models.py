@@ -87,6 +87,11 @@ class MeetupSchedule(models.Model):
     def add_meetup_sched(cls, leader_id, date, month, year, start_hour, start_minute, end_hour, end_minute):
         MeetupSchedule(leader_id=leader_id, date=date, month=month, year=year, start_hour=start_hour, start_minute=start_minute, end_hour=end_hour, end_minute=end_minute).save()
 
+    @classmethod
+    def delete_sched(cls, sched_id):
+        sched =  MeetupSchedule.objects.get(id=sched_id)
+        sched.delete()
+
 
 
 
