@@ -112,7 +112,7 @@ Section 8 – Interpretation.
 		Fix design, integrate with database, add more functionalities
 
 -->
-
+{% extends 'std\base.html' %}
 
 <!DOCTYPE html>
 <html>
@@ -121,22 +121,9 @@ Section 8 – Interpretation.
 	<title>{% block title %}Set Tayo ng Date{% endblock %}</title>
 </head>
 
-
-<body>
-	<header>
-		<h1>Set Tayo ng Date</h1>
-    </header>
-  	<hr>
-  		<main>
-  			  <p> YEHEY FUCS</p>
-
-  		</main>
-  	<hr>
-  	<footer>
-    	<a href="google.com">(c) Manifold Cheddar</a>
-  	</footer>
-</body>
-</html>
+{% block content %}
+<p> YEHEY FUCS</p>
+{% endblock %}
 
 
 
