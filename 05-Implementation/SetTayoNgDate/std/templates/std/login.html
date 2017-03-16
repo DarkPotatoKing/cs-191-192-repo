@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<div id = "bodycont">
+<div>
 		<div class = "info">
 			<h1>Welcome to Set Tayo ng Date!</h1>
 			<p>put intro about web app here</p>
@@ -12,15 +12,15 @@
 			<div class = "loginform">
 				<h2>Log in</h2>
 				{% if fail == True %}
-				<p>Username or Password is incorrect</p>
+				<p>*Username or Password is incorrect</p>
 				{% else %}
 				<p></p>
 				{% endif %}
 				<form action="{% url 'login' %}" method="post">
 					{% csrf_token %}
-					<input id="uname" type="text" name="uname" value="{{ uname }}" placeholder = "Username">
+					<input id="forms1" type="text" name="uname" value="{{ uname }}" placeholder = "Username">
 					<br>
-					<input id="passw" type="password" name="passw" value="{{ passw }}" placeholder = "Password">
+					<input id="forms1" type="password" name="passw" value="{{ passw }}" placeholder = "Password">
 					<br>
 					<button type="submit">Log in</button>
 				</form>
@@ -29,12 +29,7 @@
 			<div class = "registerform">
 				<h2> Not yet registered? </h2>
 				<h3>Register now! </h3>
-				<form action="{% url 'register' %}" method="post">
-					{% csrf_token %}
-					<input id="uname" type="text" name="uname" value="{{ uname }}" placeholder = "Username">
-					<br>
-					<input id="passw" type="password" name="passw" value="{{ passw }}" placeholder = "Password">
-					<br>
+				<form action="{% url 'register' %}">
 					<button type="submit">Register</button>
 				</form>
 			</div>
