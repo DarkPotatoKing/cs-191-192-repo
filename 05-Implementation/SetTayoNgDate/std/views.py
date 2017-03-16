@@ -34,28 +34,28 @@ def login(request):
         return render(request, 'std/home.html')
 
 
-def register(request):    
+def register(request):
     return render(request, 'std/register.html')
 
 def signup(request):
 	#to do: add error detection for user creation
 	#User.create(request.POST.get('uname'), request.POST.get('passw'))
-	return render(request, 'std/home.html')											
+	return render(request, 'std/home.html')
 
 def home(request):
     return render(request, 'std/home.html')
 
 def createmeetup(request):
 	return render(request, 'std/createmeetup.html')
-	
+
 def createmeetup2(request):
 	return render(request, 'std/createmeetup2.html')
 
 def profile(request):
 	return render(request, 'std/profile.html')
-	
+
 def editprofile(request):
 	return render(request, 'std/editprofile.html')
-	
+
 def search(request):
 	return render(request, 'std/search.html')

@@ -26,7 +26,7 @@ class User(models.Model):
 
     def __str__(self):
         return self.username + ' ' + self.password
-        
+
     @classmethod
     def all(cls):
         return User.objects.all()
@@ -97,8 +97,3 @@ class MeetupSchedule(models.Model):
     def delete_sched(cls, sched_id):
         sched =  MeetupSchedule.objects.get(id=sched_id)
         sched.delete()
-
-
-
-
-
