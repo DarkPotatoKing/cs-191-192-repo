@@ -31,6 +31,7 @@ def login(request):
     if error:
         return render(request, 'std/login.html', {"fail": True})
     else:
+        request.session['user'] =request.POST.get('uname')
         return render(request, 'std/home.html')
 
 
