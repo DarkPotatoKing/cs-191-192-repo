@@ -18,9 +18,10 @@ from std.models import *
 # Create your views here.
 def index(request):
     #autheticated = False
-
-
-    return render(request, 'std/login.html', {})
+    if 'curr_ID' in request.session:
+        return redirect(profile)
+    else:
+        return render(request, 'std/login.html', {})
 
 def login(request):
     #request.POST.get('uname'), request.POST.get('passw') user and password input
@@ -31,8 +32,16 @@ def login(request):
     if error:
         return render(request, 'std/login.html', {"fail": True})
     else:
-        return render(request, 'std/home.html')
+        currentUser = User.objects.get(username=request.POST.get('uname'))
+        request.session['curr_ID'] = currentUser.id
+        return redirect(profile)
 
+def profile(request):
+    try:
+        curr_ID = request.session['curr_ID']
+    except:
+        return redirect(index)
+    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': Schedule.all()})
 
 def register(request):
     #to do: add error detection for user creation
@@ -41,3 +50,15 @@ def register(request):
 
 def home(request):
     return render(request, 'std/home.html')
+
+def editprofile(request):
+    #curr_ID = request.session['curr_ID']
+    try:
+        curr_ID = request.session['curr_ID']
+    except:
+        return redirect(index)
+    return render(request, 'std/editprofile.html')
+
+def logout(request):
+    del request.session['curr_ID']
+    return redirect(index)

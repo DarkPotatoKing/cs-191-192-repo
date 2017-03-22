@@ -1,0 +1,277 @@
+{% extends 'std\base.html' %}
+
+
+{% block title %}Set Tayo ng Date{% endblock %}
+
+{% block content %}
+<div class="divtable">
+	<div id="homenav">
+		<p>Edit your information and your schedule</p>
+		<form action="{% url 'profile' %}" method="">				<!--gawing method=post-->
+			<p>*Image here*</p>
+			<input id="forms1" type="text" name="" value="" placeholder = "Name">
+			<input id="forms1" type="text" name="" value="" placeholder = "E-mail">
+			<input id="forms1" type="text" name="" value="" placeholder = "Contact number">
+			<input id="forms1" type="text" name="" value="" placeholder = "Facebook account">
+			<input id="forms1" type="text" name="" value="" placeholder = "Twitter account">
+			<button type="submit"> Save changes </button>
+		</form>
+		<form action="{% url 'profile' %}">
+			<input type="submit" value="Cancel">
+		</form>
+	</div>
+	
+	<div id="schedtable">
+		<table>
+			<caption> Your Weekly Schedule </caption>
+			<tr>
+				<td id="label">Time</td>
+				<td id="label">Mon</td>
+				<td id="label">Tue</td>
+				<td id="label">Wed</td>
+				<td id="label">Thu</td>
+				<td id="label">Fri</td>
+				<td id="label">Sat</td>
+			</tr>
+			<tr>
+				<td id="schedtime">07:00 AM - 07:30 AM</td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">07:30 AM - 08:00 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">08:00 AM - 08:30 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">08:30 AM - 09:00 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">09:00 AM - 09:30 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">09:30 AM - 10:00 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">10:00 AM - 10:30 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">10:30 AM - 11:00 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">11:00 AM - 11:30 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">11:30 AM - 12:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">12:00 PM - 12:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">12:30 PM - 01:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">01:00 PM - 01:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">01:30 PM - 02:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">02:00 PM - 02:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">02:30 PM - 03:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">03:00 PM - 03:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">03:30 PM - 04:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">04:00 PM - 04:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">04:30 PM - 05:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">05:00 PM - 05:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">05:30 PM - 06:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">06:00 PM - 06:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">06:30 PM - 07:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<script>
+	window.onload = function(){
+
+		var all = document.getElementsByTagName("td");
+		for (var i=0;i<all.length;i++) {
+			if(all[i].id != "schedtime" && all[i].id != "label"){
+				all[i].onclick = inputClickHandler;
+			}
+		}
+	};
+
+	function inputClickHandler(e){
+		e = e||window.event;
+		var tdElm = e.target||e.srcElement;
+		if(tdElm.style.backgroundColor == 'rgb(255, 0, 0)'){
+			tdElm.style.backgroundColor = '#fff';
+		} else {
+			tdElm.style.backgroundColor = '#f00';
+		}
+	}
+</script>
+{% endblock %}

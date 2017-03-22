@@ -1,0 +1,24 @@
+{% extends 'std\base.html' %}
+{% block title %}Create Meet Up{% endblock %}
+
+{% block content %}
+<div>
+	<div class = "signupform">
+		<h1>Available Schedules:</h1>
+		<form action="{% url 'home' %}" method="">
+			Mon, 02:00 PM - 03:00 PM <input type="radio" name="sched" value=""> <br>
+			Mon, 05:30 PM - 07:00 PM <input type="radio" name="sched" value=""> <br>
+			Fri, 10:00 AM - 11:30 AM <input type="radio" name="sched" value=""> <br>
+	</div>
+	<div class="cmubuttons">
+			<input type="submit" value="Meet Them Up">
+		</form>
+		<form action="{% url 'createmeetup' %}">
+			<input type="submit" value="Change persons to meet">
+		</form>
+		<form action="{% url 'home' %}">
+			<input type="submit" value="Cancel">
+		</form>
+	</div>
+</div>
+{% endblock %}
