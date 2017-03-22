@@ -114,15 +114,266 @@ Section 8 – Interpretation.
 -->
 {% extends 'std\base.html' %}
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>{% block title %}Set Tayo ng Date{% endblock %}</title>
-</head>
+
+{% block title %}Set Tayo ng Date{% endblock %}
 
 {% block content %}
-<p> YEHEY FUCS</p>
+<div class="divtable">
+	<div id="homenav">
+		<div>
+			<form action="{% url 'createmeetup' %}">
+				<input type="submit" value="Create Meet Up Schedule">
+			</form>
+		</div>
+		<div>
+			<form action ="{% url 'search' %}" method="">
+				<input id="search" type="text" name="searchname" value="{{ uname }}" placeholder = "Search for people">
+				<button type="submit">Search</button>
+			</form>
+		</div>
+		<label class="dropdown" for="_1">&#9660;Meet up requests</label>
+		<input id="_1" type="checkbox">
+		<div>No meet ups</div>
+		<label class="dropdown" for="_2">&#9660;Contact requests</label>
+		<input id="_2" type="checkbox">
+		<div>No request</div>
+		<label class="dropdown" for="_3">&#9660;Your Contacts</label>
+		<input id="_3" type="checkbox">
+		<div>No contact</div>
+
+	</div>
+	
+	<div id="schedtable">
+		<table>
+			<caption> DATE </caption>
+			<tr>
+				<td>Time</td>
+				<td>Mon</td>
+				<td>Tue</td>
+				<td>Wed</td>
+				<td>Thu</td>
+				<td>Fri</td>
+				<td>Sat</td>
+			</tr>
+			<tr>
+				<td id="schedtime">07:00 AM - 07:30 AM</td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+				<td id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">07:30 AM - 08:00 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">08:00 AM - 08:30 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">08:30 AM - 09:00 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">09:00 AM - 09:30 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">09:30 AM - 10:00 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">10:00 AM - 10:30 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">10:30 AM - 11:00 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">11:00 AM - 11:30 AM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">11:30 AM - 12:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">12:00 PM - 12:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">12:30 PM - 01:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">01:00 PM - 01:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">01:30 PM - 02:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">02:00 PM - 02:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">02:30 PM - 03:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">03:00 PM - 03:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">03:30 PM - 04:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">04:00 PM - 04:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">04:30 PM - 05:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">05:00 PM - 05:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">05:30 PM - 06:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">06:00 PM - 06:30 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+			<tr>
+				<td id="schedtime">06:30 PM - 07:00 PM</td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+				<td  id="schedday">     </td>
+			</tr>
+		</table>
+	</div>
+</div>
 {% endblock %}
 
 
