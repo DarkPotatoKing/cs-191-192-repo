@@ -8,16 +8,11 @@
 </head>
 <body>
 	<div class = "navbar">
-<<<<<<< HEAD
-		<div id = "bannertitle"><h1><a href = "home">Set Tayo ng Date<a></h1></div>
+		<div id = "bannertitle"><h1><a href = "{% url 'index'%}">Set Tayo ng Date<a></h1></div>
 		<!-- <div class = "nav">
-=======
-		<div id = "bannertitle"><h1><a href ="{% url 'home' %}">Set Tayo ng Date<a></h1></div>
-		<div class = "nav">
->>>>>>> 2917766b0edb1c0a5ae27f2dd6046ad258ac12b4
 			<ul>
-				<li>Hi, <a href = "{% url 'profile' %}" id = "userlink">username </a> </li>
-				<li><form action="{% url 'login' %}" method=""><button type = "submit"> Log Out </button></form></li>	<!--gawing method=post yung logout -->
+				<li>Hi, <a href = "profile" id = "userlink">username </a> </li>
+				<li><button type = "submit"> Log Out </button></li>
 				{% if user.is_authenticated %}
 				Hi {{ user.username }}
 				<a href="{% url 'logout' %}">logout</a>
