@@ -13,6 +13,13 @@ This is a course requirement for CS 192 Software Engineering II under the superv
 #2/10/17 - Edward James Bariring - finished doing basic views; more to be added
 #2/16/17 - Edward James Bariring - added methods for authentication
 
+"""TODO: #arvin, select mo nalang ung user ID using uID tapos sa schedule all gamitin mo ung uID para malaman if alin ididisplay
+    tapos same lang sa edit profile and stuff, basta pagkuha nung data pasa mo nalang as parameter ung userID.
+
+    sa editprofile pag dating ng post palagay nung user ID sa data na isusubmit, same lang sa ibang functions.
+    di ako sure kung makukuha nya kasi ung user ID :DDD
+"""
+
 from django.shortcuts import render, redirect
 from std.models import *
 # Create your views here.
@@ -37,11 +44,14 @@ def login(request):
         return redirect(profile)
 
 def profile(request):
+    #checks if user is logged in, if not return to login screen
     try:
         curr_ID = request.session['curr_ID']
     except:
         return redirect(index)
     return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': Schedule.all()})
+    #sched parameter in return is all of the schedules
+
 
 def register(request):
     #to do: add error detection for user creation
@@ -58,6 +68,12 @@ def editprofile(request):
     except:
         return redirect(index)
     return render(request, 'std/editprofile.html')
+
+#def createMeetUpSchedule(request):
+    #getting of data here
+    #put the add sched function
+    #alert other users
+    #stuff
 
 def logout(request):
     del request.session['curr_ID']
