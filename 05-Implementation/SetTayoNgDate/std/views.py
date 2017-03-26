@@ -22,6 +22,7 @@ This is a course requirement for CS 192 Software Engineering II under the superv
 
 from django.shortcuts import render, redirect
 from std.models import *
+
 # Create your views here.
 def index(request):
     #autheticated = False
@@ -49,7 +50,36 @@ def profile(request):
         curr_ID = request.session['curr_ID']
     except:
         return redirect(index)
-    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': Schedule.all()})
+    #replace schedule all with a string of scheds (same as saveprofile)
+    theList = []
+
+
+
+    for i in Schedule.all():
+        anotherList = ""    
+        anotherList+=str(i.id)
+        if i.day==1:
+            anotherList+="M"
+        elif i.day==2:
+            anotherList+="T"
+        elif i.day==3:
+            anotherList+="W"
+        elif i.day==4:
+            anotherList+="H"
+        elif i.day==5:
+            anotherList+="F"
+        elif i.day==6:
+            anotherList+="S"
+        anotherList+=str((i.hour)+1)
+
+        theList.append(anotherList)
+
+    toPass = ""
+    for x in xrange(len(theList)):
+        toPass+=str(theList[x])
+        if x != len(theList)-1:
+            toPass+=","
+    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass})
     #sched parameter in return is all of the schedules
 
 
@@ -69,6 +99,39 @@ def editprofile(request):
         return redirect(index)
     return render(request, 'std/editprofile.html')
 
+def saveprofile(request):
+    curr_ID = request.session['curr_ID']
+    currSched = request.POST.get('schedule')
+    
+
+    newSched = currSched.split(',')
+    parsed = []    
+    for i in xrange(len(newSched)):
+        toAppend = []
+        
+        if newSched[i][0] == 'M':
+            toAppend.append(1)
+        elif newSched[i][0] == 'T':
+            toAppend.append(2)
+        elif newSched[i][0] == 'W':
+            toAppend.append(3)
+        elif newSched[i][0] == 'H':
+            toAppend.append(4)
+        elif newSched[i][0] == 'F':
+            toAppend.append(5)
+        elif newSched[i][0] == 'S':
+            toAppend.append(6)
+
+        time = int(newSched[1:])
+        toAppend.append(time)
+        parsed.append(toAppend)
+
+    #use kyle method here
+
+    for x in xrange(len(newSched)):
+        Schedule.add_sched(curr_ID, parsed[i][0], parsed[i][1])
+
+    return redirect(profile)
 #def createMeetUpSchedule(request):
     #getting of data here
     #put the add sched function
