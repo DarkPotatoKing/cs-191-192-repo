@@ -43,6 +43,19 @@ class User(models.Model):
     def create(cls, username, password):
         User(username=username, password=password).save()
 
+    # to use this:
+    # x = (some User object)
+    # x.change_password(old_password, new_password, password_confirm)
+    # Returns true if password is changed successfully, false if not
+    def change_password(self, old_password, new_password, password_confirm):
+        if self.password == old_password and new_password == password_confirm:
+            self.password = new_password
+            self.save()
+            return True
+        else:
+            return False
+
+
 
 
 
