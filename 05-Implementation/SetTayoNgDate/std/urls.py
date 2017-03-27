@@ -21,10 +21,8 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^register/$', views.register, name='register'),
     url(r'^home/$', views.home, name='home'),
-	url(r'^createmeetup/$', views.createmeetup, name='createmeetup'),
-	url(r'^createmeetup2/$', views.createmeetup2, name='createmeetup2'),
-	url(r'^profile/$', views.profile, name='profile'),
-	url(r'^editprofile/$', views.editprofile, name='editprofile'),
-	url(r'^search/$', views.search, name='search'),
+    url(r'^profile/$', views.profile, name='profile'),
+    url(r'^editprofile/$', views.editprofile, name='editprofile'),
+    url(r'^logout/$', views.logout, name='logout'),
     url(r'^$', views.index, name='index'),
 ]

@@ -29,7 +29,12 @@
 			<div class = "registerform">
 				<h2> Not yet registered? </h2>
 				<h3>Register now! </h3>
-				<form action="{% url 'register' %}">
+				<form action="{% url 'register' %}" method="post">
+					{% csrf_token %}
+					<input id="forms1" type="text" name="uname" value="{{ uname }}" placeholder = "Username">
+					<br>
+					<input id="forms1" type="password" name="passw" value="{{ passw }}" placeholder = "Password">
+					<br>
 					<button type="submit">Register</button>
 				</form>
 			</div>

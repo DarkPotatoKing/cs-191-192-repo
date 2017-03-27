@@ -13,14 +13,23 @@ This is a course requirement for CS 192 Software Engineering II under the superv
 #2/10/17 - Edward James Bariring - finished doing basic views; more to be added
 #2/16/17 - Edward James Bariring - added methods for authentication
 
+"""TODO: #arvin, select mo nalang ung user ID using uID tapos sa schedule all gamitin mo ung uID para malaman if alin ididisplay
+    tapos same lang sa edit profile and stuff, basta pagkuha nung data pasa mo nalang as parameter ung userID.
+
+    sa editprofile pag dating ng post palagay nung user ID sa data na isusubmit, same lang sa ibang functions.
+    di ako sure kung makukuha nya kasi ung user ID :DDD
+"""
+
 from django.shortcuts import render, redirect
 from std.models import *
+
 # Create your views here.
 def index(request):
     #autheticated = False
-
-
-    return render(request, 'std/login.html', {})
+    if 'curr_ID' in request.session:
+        return redirect(profile)
+    else:
+        return render(request, 'std/login.html', {})
 
 def login(request):
     #request.POST.get('uname'), request.POST.get('passw') user and password input
@@ -31,32 +40,104 @@ def login(request):
     if error:
         return render(request, 'std/login.html', {"fail": True})
     else:
-        request.session['user'] =request.POST.get('uname')
-        return render(request, 'std/home.html')
+        currentUser = User.objects.get(username=request.POST.get('uname'))
+        request.session['curr_ID'] = currentUser.id
+        return redirect(profile)
+
+def profile(request):
+    #checks if user is logged in, if not return to login screen
+    try:
+        curr_ID = request.session['curr_ID']
+    except:
+        return redirect(index)
+    #replace schedule all with a string of scheds (same as saveprofile)
+    theList = []
+
+
+
+    for i in Schedule.all():
+        anotherList = ""    
+        anotherList+=str(i.id)
+        if i.day==1:
+            anotherList+="M"
+        elif i.day==2:
+            anotherList+="T"
+        elif i.day==3:
+            anotherList+="W"
+        elif i.day==4:
+            anotherList+="H"
+        elif i.day==5:
+            anotherList+="F"
+        elif i.day==6:
+            anotherList+="S"
+        anotherList+=str((i.hour)+1)
+
+        theList.append(anotherList)
+
+    toPass = ""
+    for x in xrange(len(theList)):
+        toPass+=str(theList[x])
+        if x != len(theList)-1:
+            toPass+=","
+    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass})
+    #sched parameter in return is all of the schedules
 
 
 def register(request):
-    return render(request, 'std/register.html')
-
-def signup(request):
-	#to do: add error detection for user creation
-	#User.create(request.POST.get('uname'), request.POST.get('passw'))
-	return render(request, 'std/home.html')
+    #to do: add error detection for user creation
+    User.create(request.POST.get('uname'), request.POST.get('passw'))
+    return render(request, 'std/index.html')
 
 def home(request):
     return render(request, 'std/home.html')
 
-def createmeetup(request):
-	return render(request, 'std/createmeetup.html')
-
-def createmeetup2(request):
-	return render(request, 'std/createmeetup2.html')
-
-def profile(request):
-	return render(request, 'std/profile.html')
-
 def editprofile(request):
-	return render(request, 'std/editprofile.html')
+    #curr_ID = request.session['curr_ID']
+    try:
+        curr_ID = request.session['curr_ID']
+    except:
+        return redirect(index)
+    return render(request, 'std/editprofile.html')
 
-def search(request):
-	return render(request, 'std/search.html')
+def saveprofile(request):
+    curr_ID = request.session['curr_ID']
+    currSched = request.POST.get('schedule')
+    
+
+    newSched = currSched.split(',')
+    parsed = []    
+    for i in xrange(len(newSched)):
+        toAppend = []
+        
+        if newSched[i][0] == 'M':
+            toAppend.append(1)
+        elif newSched[i][0] == 'T':
+            toAppend.append(2)
+        elif newSched[i][0] == 'W':
+            toAppend.append(3)
+        elif newSched[i][0] == 'H':
+            toAppend.append(4)
+        elif newSched[i][0] == 'F':
+            toAppend.append(5)
+        elif newSched[i][0] == 'S':
+            toAppend.append(6)
+
+        time = int(newSched[1:])
+        toAppend.append(time)
+        parsed.append(toAppend)
+
+    #use kyle method here
+
+    for x in xrange(len(newSched)):
+        Schedule.add_sched(curr_ID, parsed[i][0], parsed[i][1])
+
+    return redirect(profile)
+#def createMeetUpSchedule(request):
+    #getting of data here
+    #put the add sched function
+    #alert other users
+    #stuff
+
+def logout(request):
+    del request.session['curr_ID']
+    return redirect(index)
