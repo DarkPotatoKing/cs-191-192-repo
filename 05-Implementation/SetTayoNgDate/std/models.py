@@ -26,7 +26,7 @@ class User(models.Model):
     name = models.CharField(max_length=256)
 
     def __str__(self):
-        return self.username + ' ' + self.password
+        return self.username + ' ' + self.password + ' ' + self.name
 
     @classmethod
     def all(cls):
@@ -41,8 +41,8 @@ class User(models.Model):
             return False
 
     @classmethod
-    def create(cls, username, password):
-        User(username=username, password=password).save()
+    def create(cls, username, password, name):
+        User(username=username, password=password, name=name).save()
 
     # to use this:
     # x = (some User object)

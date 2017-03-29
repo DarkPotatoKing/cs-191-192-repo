@@ -29,11 +29,22 @@
 			<div class = "registerform">
 				<h2> Not yet registered? </h2>
 				<h3>Register now! </h3>
+				{% if passerror == 1 %}
+				<p>*Passwords do not match</p>
+				{% elif passerror == 2 %}
+				<p>*Username already exists, please choose a different one</p>
+				{% else %}
+				<p></p>
+				{% endif %}
 				<form action="{% url 'register' %}" method="post">
 					{% csrf_token %}
 					<input id="forms1" type="text" name="uname" value="{{ uname }}" placeholder = "Username">
 					<br>
+					<input id="forms1" type="text" name="identity" value="{{ identity }}" placeholder="Your Name">
+					<br>
 					<input id="forms1" type="password" name="passw" value="{{ passw }}" placeholder = "Password">
+					<br>
+					<input id="forms1" type="password" name="passw2" value="{{ passw2 }}" placeholder="Confirm Password">
 					<br>
 					<button type="submit">Register</button>
 				</form>

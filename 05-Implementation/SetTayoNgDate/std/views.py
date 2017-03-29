@@ -55,9 +55,9 @@ def profile(request):
 
 
 
-    for i in Schedule.all():
+    for i in Schedule.objects.filter(user_id=curr_ID):
         anotherList = ""    
-        anotherList+=str(i.id)
+        #anotherList+=str(i.id)
         if i.day==1:
             anotherList+="M"
         elif i.day==2:
@@ -80,13 +80,19 @@ def profile(request):
         if x != len(theList)-1:
             toPass+=","
     return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass})
-    #sched parameter in return is all of the schedules
+    #sched parameter in return is the schedule of user
 
 
 def register(request):
     #to do: add error detection for user creation
-    User.create(request.POST.get('uname'), request.POST.get('passw'))
-    return render(request, 'std/index.html')
+    if request.POST.get('passw')!=request.POST.get('passw2'):
+        return render(request, 'std/login.html', {"passerror": 1})
+    try:
+        userExist =  User.objects.get(username=request.POST.get('uname'))
+        return render(request, 'std/login.html', {"passerror": 2})
+    except:
+        User.create(request.POST.get('uname'), request.POST.get('passw'), request.POST.get('identity'))    
+        return render(request, 'std/index.html')
 
 def home(request):
     return render(request, 'std/home.html')
@@ -127,7 +133,7 @@ def saveprofile(request):
         parsed.append(toAppend)
 
     #use kyle method here
-
+    Schedule.objects.filter(user_id=curr_ID).delete()
     for x in xrange(len(newSched)):
         Schedule.add_sched(curr_ID, parsed[i][0], parsed[i][1])
 
