@@ -23,6 +23,7 @@ This is a course requirement for CS 192 Software Engineering II under the superv
 from django.shortcuts import render, redirect
 from std.models import *
 
+
 # Create your views here.
 def index(request):
     #autheticated = False
@@ -128,14 +129,14 @@ def saveprofile(request):
         elif newSched[i][0] == 'S':
             toAppend.append(6)
 
-        time = int(newSched[1:])
+        time = int(newSched[i][1:])
         toAppend.append(time)
         parsed.append(toAppend)
 
     #use kyle method here
     Schedule.objects.filter(user_id=curr_ID).delete()
     for x in xrange(len(newSched)):
-        Schedule.add_sched(curr_ID, parsed[i][0], parsed[i][1])
+        Schedule.add_sched(curr_ID, parsed[x][0], parsed[x][1])
 
     return redirect(profile)
 #def createMeetUpSchedule(request):

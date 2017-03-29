@@ -13,14 +13,14 @@
 		<p>Contact Number: </p>
 		<p>Facebook account:</p>
 		<p>Twitter account: </p>
-		<form action="{% url 'profile' %}" method="POST">				<!--gawing method=post-->
+		<form action="{% url 'saveprofile' %}" method="post">				<!--gawing method=post-->
 			{% csrf_token %}
 			<!--<input id="forms1" type="text" name="" value="" placeholder = "Name">
 			<input id="forms1" type="text" name="" value="" placeholder = "E-mail">
 			<input id="forms1" type="text" name="" value="" placeholder = "Contact number">
 			<input id="forms1" type="text" name="" value="" placeholder = "Facebook account">
 			<input id="forms1" type="text" name="" value="" placeholder = "Twitter account">-->
-			<input type="hidden" id="schedule" value="">
+			<input type="text" id="schedule" name="schedule" value="{{ schedule }}" hidden>
 			<button type="submit"> Save changes </button>
 		</form>
 		<form action="{% url 'profile' %}">
@@ -287,6 +287,7 @@
 			array.push(tdElm.id);		//add to array
 			array.join()
 			document.getElementById('schedule').value=array;
+			document.getElementById("demo").innerHTML = document.getElementById('schedule').value
 		}
 	}
 	
