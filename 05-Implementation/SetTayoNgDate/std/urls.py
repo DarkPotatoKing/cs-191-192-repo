@@ -25,5 +25,8 @@ urlpatterns = [
     url(r'^editprofile/$', views.editprofile, name='editprofile'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^saveprofile/$', views.saveprofile, name='saveprofile'),
+	url(r'^createmeetup/$', views.createmeetup, name='createmeetup'),
+	url(r'^createmeetup2/$', views.createmeetup2, name='createmeetup2'),
+	url(r'^search/$', views.search, name='search'),
     url(r'^$', views.index, name='index'),
 ]

@@ -96,7 +96,38 @@ def register(request):
         return render(request, 'std/index.html')
 
 def home(request):
-    return render(request, 'std/home.html')
+	#curr_ID = request.session['curr_ID']
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
+		
+	theList = []
+	for i in Schedule.objects.filter(user_id=curr_ID):
+		anotherList = "" 
+		if i.day==1:
+			anotherList+="M"
+		elif i.day==2:
+			anotherList+="T"
+		elif i.day==3:
+			anotherList+="W"
+		elif i.day==4:
+			anotherList+="H"
+		elif i.day==5:
+			anotherList+="F"
+		elif i.day==6:
+			anotherList+="S"
+			
+		anotherList+=str((i.hour))
+		theList.append(anotherList)
+	
+	toPass=""
+	for x in xrange(len(theList)):
+		toPass+=str(theList[x])
+		if x != len(theList)-1:
+			toPass+=","
+	return render(request, 'std/home.html',{'uID': curr_ID, 'sched': toPass})
+
 
 def editprofile(request):
 	#curr_ID = request.session['curr_ID']
@@ -173,3 +204,12 @@ def saveprofile(request):
 def logout(request):
     del request.session['curr_ID']
     return redirect(index)
+
+def createmeetup(request):
+	return render(request,'std/createmeetup.html')
+	
+def createmeetup2(request):
+	return render(request,'std/createmeetup2.html')
+	
+def search(request):
+	return render(request, 'std/search.html')
