@@ -7,7 +7,7 @@
 <div class="divtable">
 	<div id="homenav">
 		<p>Edit your information and your schedule</p>
-		<p>*Image here*</p>
+		<p>Hi {{sched}}</p>
 		<p>Name:</p>
 		<p>E-mail:</p>
 		<p>Contact Number: </p>
@@ -20,7 +20,7 @@
 			<input id="forms1" type="text" name="" value="" placeholder = "Contact number">
 			<input id="forms1" type="text" name="" value="" placeholder = "Facebook account">
 			<input id="forms1" type="text" name="" value="" placeholder = "Twitter account">-->
-			<input type="text" id="schedule" name="schedule" value="{{ schedule }}" hidden>
+			<input type="hidden" id="schedule" name="schedule" value="">
 			<button type="submit"> Save changes </button>
 		</form>
 		<form action="{% url 'profile' %}">
@@ -263,8 +263,21 @@
 
 <p id="demo"></p>
 <script>
-	var all = document.getElementsByTagName("td");
+	//get sched from database
+	var json = "{{sched}}".replace(/&quot;/g,"\"")	//bookmark reference code
 	var array = new Array();
+	array = json.split(",");
+	
+	document.getElementById('schedule').value=array;	//make the sched of user as default value to be passed
+	
+	//issues: nag eerror kapag walang nakacolor na cell kasi walang valueng na rereturn
+	
+	//color the table
+	for(var i=0;i<array.length;i++){
+		document.getElementById(array[i]).style.backgroundColor = "#f00";
+	}
+	
+	var all = document.getElementsByTagName("td");
 	window.onload = function(){
 
 		for (var i=0;i<all.length;i++) {
@@ -292,7 +305,7 @@
 	}
 	
 	function myFunction() {
-		document.getElementById("demo").innerHTML = document.getElementById('schedule').value;
+		document.getElementById("demo").innerHTML = array;//document.getElementById('schedule').value;
 	}
 	
 </script>

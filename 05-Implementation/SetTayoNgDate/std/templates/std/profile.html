@@ -6,7 +6,7 @@
 {% block content %}
 <div class="divtable">
 	<div id="homenav">
-		<p> Hi {{uID}}</p>
+		<p> Hi {{sched}}</p>
 		<p>*Image here*</p>
 		<p>Name:</p>
 		<p>E-mail:</p>
@@ -254,7 +254,24 @@
 			</tr>
 		</table>
 	</div>
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo"></p>
 </div>
 
+<script>
+	//get sched from database
+	var json = "{{sched}}".replace(/&quot;/g,"\"")	//bookmark reference code
+	var array = new Array();
+	array = json.split(",");
+	
+	//color the table
+	for(var i=0;i<array.length;i++){
+		document.getElementById(array[i]).style.backgroundColor = "#f00";
+	}
+	function myFunction() {
+		document.getElementById("demo").innerHTML = array;
+	}
+	
 </script>
 {% endblock %}

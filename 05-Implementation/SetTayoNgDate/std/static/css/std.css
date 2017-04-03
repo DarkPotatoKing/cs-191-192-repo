@@ -214,7 +214,7 @@ main{
 #schedtime{						/*width ng cell ng time*/			
 	width: 18%;
 }
-#schedday{						/*width ng cell ng day*/	
+.schedday{						/*width ng cell ng day*/	
 	width: 11%;
 }
 
