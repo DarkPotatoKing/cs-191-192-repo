@@ -195,21 +195,34 @@ def saveprofile(request):
         Schedule.add_sched(curr_ID, parsed[x][0], parsed[x][1])
 
     return redirect(profile)
-#def createMeetUpSchedule(request):
-    #getting of data here
-    #put the add sched function
-    #alert other users
-    #stuff
+
 
 def logout(request):
     del request.session['curr_ID']
     return redirect(index)
 
 def createmeetup(request):
+	#def createMeetUpSchedule(request):
+    #getting of data here
+    #put the add sched function
+    #alert other users
+    #stuff
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
 	return render(request,'std/createmeetup.html')
 	
 def createmeetup2(request):
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
 	return render(request,'std/createmeetup2.html')
 	
 def search(request):
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
 	return render(request, 'std/search.html')

@@ -135,15 +135,16 @@ Section 8 – Interpretation.
 		<form action="{% url 'profile' %}">
 			<input type="submit" value="Profile">
 		</form>
-		<label class="dropdown" for="_1">&#9660;Meet up requests</label>
-		<input id="_1" type="checkbox">
-		<div>No meet ups</div>
-		<label class="dropdown" for="_2">&#9660;Contact requests</label>
-		<input id="_2" type="checkbox">
-		<div>No request</div>
-		<label class="dropdown" for="_3">&#9660;Your Contacts</label>
-		<input id="_3" type="checkbox">
-		<div>No contact</div>
+		
+		<label class="dropdown" id ="dd1" onclick="changetext1()">&#9660;Meet up requests</label>
+		<input type="checkbox">
+		<div id ="ddmeet">No meet ups</div>
+		<label class="dropdown" id ="dd2" onclick="changetext2()">&#9660;Contact requests</label>
+		<input type="checkbox">
+		<div id ="ddcontact">No request</div>
+		<label class="dropdown" id ="dd3" onclick="changetext3()">&#9660;Your Contacts</label>
+		<input type="checkbox">
+		<div id ="ddyours">No contact</div>
 
 	</div>
 	
@@ -383,14 +384,49 @@ Section 8 – Interpretation.
 	var json = "{{sched}}".replace(/&quot;/g,"\"")	//bookmark reference code
 	var array = new Array();
 	array = json.split(",");
+	var rightArrow = '\u25b6';
+	var downArrow =  '\u25bc';
 	
 	//color the table
 	for(var i=0;i<array.length;i++){
 		document.getElementById(array[i]).style.backgroundColor = "#f00";
 	}
-	function myFunction() {
-		document.getElementById("demo").innerHTML = array;
+	
+	//show/hide and change text of meet up requests
+	function changetext1(){
+		if(document.getElementById('dd1').innerHTML == downArrow+'Meet up requests'){
+			document.getElementById('dd1').innerHTML = rightArrow+'Meet up requests';
+			document.getElementById('ddmeet').style.display = 'none';
+		} else if (document.getElementById('dd1').innerHTML == rightArrow+'Meet up requests'){
+			document.getElementById('dd1').innerHTML = downArrow+'Meet up requests';
+			document.getElementById('ddmeet').style.display = 'block';
+		}
+		
 	}
+	
+	//show/hide and change text of contact requests
+	function changetext2(){
+		if(document.getElementById('dd2').innerHTML == downArrow+'Contact requests'){
+			document.getElementById('dd2').innerHTML = rightArrow+'Contact requests';
+			document.getElementById('ddcontact').style.display = 'none';
+		} else if (document.getElementById('dd2').innerHTML == rightArrow+'Contact requests'){
+			document.getElementById('dd2').innerHTML = downArrow+'Contact requests';
+			document.getElementById('ddcontact').style.display = 'block';
+		}
+	}
+	
+	//show/hide and change text of your contacts
+	function changetext3(){
+		if(document.getElementById('dd3').innerHTML == downArrow+'Your Contacts'){
+			document.getElementById('dd3').innerHTML = rightArrow+'Your Contacts';
+			document.getElementById('ddyours').style.display = 'none';
+		} else if (document.getElementById('dd3').innerHTML == rightArrow+'Your Contacts'){
+			document.getElementById('dd3').innerHTML = downArrow+'Your Contacts';
+			document.getElementById('ddyours').style.display = 'block';
+		}
+	}
+	
+	
 	
 </script>
 {% endblock %}

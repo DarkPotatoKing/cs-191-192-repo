@@ -75,6 +75,11 @@ main{
 	border-color: white;
 	border-width: 2px;*/
 }
+
+input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse pointer*/
+	cursor:pointer;
+}
+
 /*---------------------------------------------------*/
 
 /*-------------login and register forms-------------------*/
@@ -211,6 +216,10 @@ main{
 	text-align: center;
 }
 
+.schedtableEdit{
+	cursor:pointer;
+}
+
 #schedtime{						/*width ng cell ng time*/			
 	width: 18%;
 }
@@ -227,12 +236,6 @@ main{
 
 .dropdown + input{
   display: none; /* hide the checkboxes */
-}
-.dropdown + input + div{
-  display:block;
-}
-.dropdown + input:checked + div{
-  display:none;
 }
 
 /*---------------------------------------------------*/
