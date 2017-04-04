@@ -61,15 +61,16 @@ class User(models.Model):
 
 
 class Schedule(models.Model):
+    # Schedule is the NOT FREE times
     # todo, make foreign keysss
     user_id = models.IntegerField()
     # 0 = Sunday to 6 = Saturday
     day = models.IntegerField()
-    # 0 = 00:00 - 00:59 to 23 = 23:00 - 23:99
+    # 1 = 07:00 - 07:30, 2 = 7:30 - 08:00, etc/
     hour = models.IntegerField()
 
     def __str__(self):
-        return '{}: {} - {}'.format(self.user_id, self.day, self.hour)
+        return 'User#{}: {} - {}'.format(self.user_id, self.day, self.hour)
 
     @classmethod
     def all(cls):
@@ -83,6 +84,28 @@ class Schedule(models.Model):
     def delete_sched(cls, sched_id):
         sched =  Schedule.objects.get(id=sched_id)
         sched.delete()
+
+    # use: Schdule.find_common_schedules(user_ids)
+    # example, find common schedules of Users with id = 1 and 3
+    # Schedule.find_common_schedules([1,3])
+    # returns 24x7 matrix (24 30 minute intevals, 7 days)
+    # each "cell" in the matrix is a set containing all the ids of users NOT FREE that time
+    # blank cells are the common free times of everyone
+    @classmethod
+    def find_common_schedules(cls, user_ids):
+        schedules = filter(lambda x: x.user_id in user_ids, Schedule.all())
+        time_table = list()
+
+        for _ in xrange(24):
+            x = list()
+            for _ in xrange(7):
+                x.append(set())
+            time_table.append(x)
+
+        for schedule in schedules:
+            time_table[schedule.hour - 1][schedule.day].add(schedule.user_id)
+
+        return time_table
 
 
 class MeetupSchedule(models.Model):
