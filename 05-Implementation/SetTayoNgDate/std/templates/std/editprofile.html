@@ -7,14 +7,14 @@
 <div class="divtable">
 	<div id="homenav">
 		<p>Edit your information and your schedule</p>
-		<p>Hi {{uID}}</p>
+		<p>Hi {{name}}</p>
 		<form action="{% url 'saveprofile' %}" method="post">				<!--gawing method=post-->
 			{% csrf_token %}
-			<input id="forms1" type="text" name="" value="" placeholder = "Name">	<!--edit: gawing yung current value ang nasa palce holder at lagyan na lang ng label bawat input-->
+			<!--<input id="forms1" type="text" name="" value="" placeholder = "Name">
 			<input id="forms1" type="text" name="" value="" placeholder = "E-mail">
 			<input id="forms1" type="text" name="" value="" placeholder = "Contact number">
 			<input id="forms1" type="text" name="" value="" placeholder = "Facebook account">
-			<input id="forms1" type="text" name="" value="" placeholder = "Twitter account">
+			<input id="forms1" type="text" name="" value="" placeholder = "Twitter account">-->
 			<input type="hidden" id="schedule" name="schedule" value="">
 			<button type="submit"> Save changes </button>
 		</form>
@@ -260,18 +260,22 @@
 <script>
 	//get sched from database
 	var json = "{{sched}}".replace(/&quot;/g,"\"")	//bookmark reference code
-	var array = new Array();
-	array = json.split(",");
+	if(json!=""){	//if may sched na yung user
+		var array = new Array();
+		array = json.split(",");
 	
-	document.getElementById('schedule').value=array;	//make the sched of user as default value to be passed
+		document.getElementById('schedule').value=array;	//make the sched of user as default value to be passed
 	
 	//issues: nag eerror kapag walang nakacolor na cell kasi walang valueng na rereturn
 	
 	//color the table
-	for(var i=0;i<array.length;i++){
-		document.getElementById(array[i]).style.backgroundColor = "#f00";
+		for(var i=0;i<array.length;i++){
+			document.getElementById(array[i]).style.backgroundColor = "#f00";
+		}
 	}
-	
+	else{	//if wala pang sched user
+		var array = new Array();
+	}
 	var all = document.getElementsByTagName("td");
 	window.onload = function(){
 

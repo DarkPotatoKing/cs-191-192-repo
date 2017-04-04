@@ -5,7 +5,7 @@
 <div>
 	<div class = "signupform">
 		<h1>Available Schedules:</h1>
-		<form action="{% url 'home' %}" method="">
+		<form action="{% url 'profile' %}" method="">
 			Mon, 02:00 PM - 03:00 PM <input type="radio" name="sched" value=""> <br>
 			Mon, 05:30 PM - 07:00 PM <input type="radio" name="sched" value=""> <br>
 			Fri, 10:00 AM - 11:30 AM <input type="radio" name="sched" value=""> <br>
@@ -16,7 +16,7 @@
 		<form action="{% url 'createmeetup' %}">
 			<input type="submit" value="Change persons to meet">
 		</form>
-		<form action="{% url 'home' %}">
+		<form action="{% url 'profile' %}">
 			<input type="submit" value="Cancel">
 		</form>
 	</div>

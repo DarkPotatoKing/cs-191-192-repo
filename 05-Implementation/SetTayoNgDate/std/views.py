@@ -80,7 +80,7 @@ def profile(request):
         toPass+=str(theList[x])
         if x != len(theList)-1:
             toPass+=","
-    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass})
+    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'name':User.objects.get(id=curr_ID).name})
     #sched parameter in return is the schedule of user
 
 
@@ -160,41 +160,43 @@ def editprofile(request):
 		toPass+=str(theList[x])
 		if x != len(theList)-1:
 			toPass+=","
-	return render(request, 'std/editprofile.html',{'uID': curr_ID, 'sched': toPass})
+	return render(request, 'std/editprofile.html',{'uID': curr_ID, 'sched': toPass, 'name':User.objects.get(id=curr_ID).name})
 
 def saveprofile(request):
     curr_ID = request.session['curr_ID']
     currSched = request.POST.get('schedule')
     
+    try:
+        newSched = currSched.split(',')
+        parsed = []    
+        for i in xrange(len(newSched)):
+            toAppend = []
+            
+            if newSched[i][0] == 'M':
+                toAppend.append(1)
+            elif newSched[i][0] == 'T':
+                toAppend.append(2)
+            elif newSched[i][0] == 'W':
+                toAppend.append(3)
+            elif newSched[i][0] == 'H':
+                toAppend.append(4)
+            elif newSched[i][0] == 'F':
+                toAppend.append(5)
+            elif newSched[i][0] == 'S':
+                toAppend.append(6)
 
-    newSched = currSched.split(',')
-    parsed = []    
-    for i in xrange(len(newSched)):
-        toAppend = []
-        
-        if newSched[i][0] == 'M':
-            toAppend.append(1)
-        elif newSched[i][0] == 'T':
-            toAppend.append(2)
-        elif newSched[i][0] == 'W':
-            toAppend.append(3)
-        elif newSched[i][0] == 'H':
-            toAppend.append(4)
-        elif newSched[i][0] == 'F':
-            toAppend.append(5)
-        elif newSched[i][0] == 'S':
-            toAppend.append(6)
+            time = int(newSched[i][1:])
+            toAppend.append(time)
+            parsed.append(toAppend)
 
-        time = int(newSched[i][1:])
-        toAppend.append(time)
-        parsed.append(toAppend)
+        #use kyle method here
+        Schedule.objects.filter(user_id=curr_ID).delete()
+        for x in xrange(len(newSched)):
+            Schedule.add_sched(curr_ID, parsed[x][0], parsed[x][1])
 
-    #use kyle method here
-    Schedule.objects.filter(user_id=curr_ID).delete()
-    for x in xrange(len(newSched)):
-        Schedule.add_sched(curr_ID, parsed[x][0], parsed[x][1])
-
-    return redirect(profile)
+        return redirect(profile)
+    except:
+        return redirect(profile)
 
 
 def logout(request):
@@ -211,7 +213,14 @@ def createmeetup(request):
 		curr_ID = request.session['curr_ID']
 	except:
 		return redirect(index)
-	return render(request,'std/createmeetup.html')
+
+    toPass = ""
+    for i in User.all():
+        toPass+=i.id
+        toPass+=i.name
+        toPass+=','
+    toPass = toPass[:-1]
+	return render(request,'std/createmeetup.html', {'names': toPass})
 	
 def createmeetup2(request):
 	try:

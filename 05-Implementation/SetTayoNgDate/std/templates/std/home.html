@@ -126,15 +126,12 @@ Section 8 – Interpretation.
 				<input type="submit" value="Create Meet Up Schedule">
 			</form>
 		</div>
-		<div>
+		<!--<div>
 			<form action ="{% url 'search' %}" method="">
 				<input id="search" type="text" name="searchname" value="{{ uname }}" placeholder = "Search for people">
 				<button type="submit">Search</button>
 			</form>
-		</div>
-		<form action="{% url 'profile' %}">
-			<input type="submit" value="Profile">
-		</form>
+		</div>-->
 		
 		<label class="dropdown" id ="dd1" onclick="changetext1()">&#9660;Meet up requests</label>
 		<input type="checkbox">
@@ -384,8 +381,6 @@ Section 8 – Interpretation.
 	var json = "{{sched}}".replace(/&quot;/g,"\"")	//bookmark reference code
 	var array = new Array();
 	array = json.split(",");
-	var rightArrow = '\u25b6';
-	var downArrow =  '\u25bc';
 	
 	//color the table
 	for(var i=0;i<array.length;i++){
@@ -393,6 +388,8 @@ Section 8 – Interpretation.
 	}
 	
 	//show/hide and change text of meet up requests
+	var rightArrow = '\u25b6';
+	var downArrow =  '\u25bc';
 	function changetext1(){
 		if(document.getElementById('dd1').innerHTML == downArrow+'Meet up requests'){
 			document.getElementById('dd1').innerHTML = rightArrow+'Meet up requests';
