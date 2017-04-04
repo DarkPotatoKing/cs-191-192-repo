@@ -115,15 +115,15 @@ class MeetupSchedule(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return 'leader_id:{} {}/{}/{} {}:{} to {}:{}'.format(self.leader_id, self.date, self.month, self.year, self.start_hour, self.start_minute, self.end_hour, self.end_minute)
+        return 'leader_id:{} {}/{}/{} {}:{} to {}:{} "{}"'.format(self.leader_id, self.date, self.month, self.year, self.start_hour, self.start_minute, self.end_hour, self.end_minute, self.description)
 
     @classmethod
     def all(cls):
         return MeetupSchedule.objects.all()
 
     @classmethod
-    def add_meetup_sched(cls, leader_id, date, month, year, start_hour, start_minute, end_hour, end_minute):
-        MeetupSchedule(leader_id=leader_id, date=date, month=month, year=year, start_hour=start_hour, start_minute=start_minute, end_hour=end_hour, end_minute=end_minute).save()
+    def add_meetup_sched(cls, leader_id, date, month, year, start_hour, start_minute, end_hour, end_minute, description = ''):
+        MeetupSchedule(leader_id=leader_id, date=date, month=month, year=year, start_hour=start_hour, start_minute=start_minute, end_hour=end_hour, end_minute=end_minute, description=description).save()
 
     @classmethod
     def delete_sched(cls, sched_id):
@@ -149,3 +149,6 @@ class MeetupRequest(models.Model):
     @classmethod
     def delete_meetup_request(cls, meetup_request_id):
         MeetupRequest.objects.get(id=meetup_request_id).delete()
+
+    def get_description(self):
+        return MeetupSchedule.objects.get(id=self.meetup_schedule_id).description
