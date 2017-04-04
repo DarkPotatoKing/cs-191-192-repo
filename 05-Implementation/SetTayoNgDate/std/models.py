@@ -129,3 +129,22 @@ class MeetupSchedule(models.Model):
     def delete_sched(cls, sched_id):
         sched =  MeetupSchedule.objects.get(id=sched_id)
         sched.delete()
+
+class MeetupRequest(models.Model):
+    meetup_schedule_id = models.IntegerField()
+    member_id = models.IntegerField()
+
+    def __str__(self):
+        return '(MeetupSched #{}: User#{})'.format(self.meetup_schedule_id, self.member_id)
+
+    @classmethod
+    def all(cls):
+        return MeetupRequest.objects.all()
+
+    @classmethod
+    def add_meetup_request(cls, meetup_schedule_id, member_id):
+        MeetupRequest(meetup_schedule_id=meetup_schedule_id, member_id=member_id).save()
+
+    @classmethod
+    def delete_meetup_request(cls, meetup_request_id):
+        MeetupRequest.objects.get(id=meetup_request_id).delete()
