@@ -118,6 +118,7 @@ class MeetupSchedule(models.Model):
     start_minute = models.IntegerField()
     end_hour = models.IntegerField()
     end_minute = models.IntegerField()
+    description = models.TextField()
 
     def __str__(self):
         return 'leader_id:{} {}/{}/{} {}:{} to {}:{}'.format(self.leader_id, self.date, self.month, self.year, self.start_hour, self.start_minute, self.end_hour, self.end_minute)
