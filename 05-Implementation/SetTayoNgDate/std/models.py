@@ -19,7 +19,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-
 class User(models.Model):
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=256)
@@ -55,10 +54,6 @@ class User(models.Model):
             return True
         else:
             return False
-
-
-
-
 
 class Schedule(models.Model):
     # Schedule is the NOT FREE times
@@ -106,7 +101,6 @@ class Schedule(models.Model):
             time_table[schedule.hour - 1][schedule.day].add(schedule.user_id)
 
         return time_table
-
 
 class MeetupSchedule(models.Model):
     # todo, make foreign keys
