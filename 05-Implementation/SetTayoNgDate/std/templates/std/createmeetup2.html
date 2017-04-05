@@ -5,21 +5,152 @@
 <div>
 	<div class = "signupform">
 		<h1>Available Schedules:</h1>
-		<p>These are the list of users: {{ userID }} </p> <!--DELETE THIS-->
-		<form action="{% url 'profile' %}" method="">
-			Mon, 02:00 PM - 03:00 PM <input type="radio" name="sched" value=""> <br>
-			Mon, 05:30 PM - 07:00 PM <input type="radio" name="sched" value=""> <br>
-			Fri, 10:00 AM - 11:30 AM <input type="radio" name="sched" value=""> <br>
+		<form action="{% url 'profile' %}" method="post">
+			{% csrf_token %}
+			{% load i18n %}
+			{% for i in common%}
+				{% for j in i%}
+					{% if not j %}
+						{% if forloop.counter == 2 %}
+							<!--{% with "Monday" as day and "M" as daycode%}
+								{% if forloop.parentloop.counter == 1%}
+									{% with "7:00AM - 7:30AM" as time and "1" as timecode%}
+										{{ day }},{{ time }}<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+									{% endwith %}
+								{% elif forloop.parentloop.counter == 2%}
+									{% with "7:30AM - 8:00AM" as time and "2" as timecode%}
+										{{ day }},{{ time }}<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+									{% endwith %}
+								{% endif %}
+							{% endwith %}-->
+							{% trans "Monday" as day %}
+							{% trans "M" as daycode %}
+						{% elif forloop.counter == 3 %}
+							{% trans "Tuesday" as day %}
+							{% trans "T" as daycode %}
+						{% elif forloop.counter == 4 %}
+							{% trans "Wednesday" as day %}
+							{% trans "W" as daycode %}
+						{% elif forloop.counter == 5 %}
+							{% trans "Thursday" as day %}
+							{% trans "H" as daycode %}
+						{% elif forloop.counter == 6 %}
+							{% trans "Friday" as day %}
+							{% trans "F" as daycode %}
+						{% elif forloop.counter == 7 %}
+							{% trans "Saturday" as day %}
+							{% trans "S" as daycode %}
+						{% endif %}
+						{% if forloop.parentloop.counter == 1 %}
+							{% trans "7:00 AM - 7:30 AM" as time %}
+							{% trans "1" as timecode %}
+						{% elif forloop.parentloop.counter == 2 %}
+							{% trans "7:30 AM - 8:00 AM" as time %}
+							{% trans "2" as timecode %}
+						{% elif forloop.parentloop.counter == 3 %}
+							{% trans "8:00 AM - 8:30 AM" as time %}
+							{% trans "3" as timecode %}
+						{% elif forloop.parentloop.counter == 4 %}
+							{% trans "8:30 AM - 9:00 AM" as time %}
+							{% trans "4" as timecode %}
+						{% elif forloop.parentloop.counter == 5 %}
+							{% trans "9:00 AM - 9:30 AM" as time %}
+							{% trans "5" as timecode %}
+						{% elif forloop.parentloop.counter == 6 %}
+							{% trans "9:30 AM - 10:00 AM" as time %}
+							{% trans "6" as timecode %}
+						{% elif forloop.parentloop.counter == 7 %}
+							{% trans "10:00 AM - 10:30 AM" as time %}
+							{% trans "7" as timecode %}
+						{% elif forloop.parentloop.counter == 8 %}
+							{% trans "10:30 AM - 11:00 AM" as time %}
+							{% trans "8" as timecode %}
+						{% elif forloop.parentloop.counter == 9 %}
+							{% trans "11:00 AM - 11:30 AM" as time %}
+							{% trans "9" as timecode %}
+						{% elif forloop.parentloop.counter == 10 %}
+							{% trans "11:30 AM - 12:00 PM" as time %}
+							{% trans "10" as timecode %}
+						{% elif forloop.parentloop.counter == 11 %}
+							{% trans "12:00 PM - 12:30 PM" as time %}
+							{% trans "11" as timecode %}
+						{% elif forloop.parentloop.counter == 12 %}
+							{% trans "12:30 PM - 1:00 PM" as time %}
+							{% trans "12" as timecode %}
+						{% elif forloop.parentloop.counter == 13 %}
+							{% trans "1:00 PM - 1:30 PM" as time %}
+							{% trans "13" as timecode %}
+						{% elif forloop.parentloop.counter == 14 %}
+							{% trans "1:30 PM - 2:00 PM" as time %}
+							{% trans "14" as timecode %}
+						{% elif forloop.parentloop.counter == 15 %}
+							{% trans "2:00 PM - 2:30 PM" as time %}
+							{% trans "15" as timecode %}
+						{% elif forloop.parentloop.counter == 16 %}
+							{% trans "2:30 PM - 3:00 PM" as time %}
+							{% trans "16" as timecode %}
+						{% elif forloop.parentloop.counter == 17 %}
+							{% trans "3:00 PM - 3:30 PM" as time %}
+							{% trans "17" as timecode %}
+						{% elif forloop.parentloop.counter == 18 %}
+							{% trans "3:30 PM - 4:00 PM" as time %}
+							{% trans "18" as timecode %}
+						{% elif forloop.parentloop.counter == 19 %}
+							{% trans "4:00 PM - 4:30 PM" as time %}
+							{% trans "19" as timecode %}
+						{% elif forloop.parentloop.counter == 20 %}
+							{% trans "4:30 PM - 5:00 PM" as time %}
+							{% trans "20" as timecode %}
+						{% elif forloop.parentloop.counter == 21 %}
+							{% trans "5:00 PM - 5:30 PM" as time %}
+							{% trans "21" as timecode %}
+						{% elif forloop.parentloop.counter == 22 %}
+							{% trans "5:30 PM - 6:00 PM" as time %}
+							{% trans "22" as timecode %}
+						{% elif forloop.parentloop.counter == 23 %}
+							{% trans "6:00 PM - 6:30 PM" as time %}
+							{% trans "23" as timecode %}
+						{% elif forloop.parentloop.counter == 24 %}
+							{% trans "6:30 PM - 7:00 PM" as time %}
+							{% trans "24" as timecode %}
+						{% endif %}
+						{%if forloop.counter != 1 %}
+							{{ day }},{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+
 	</div>
+
 	<div class="cmubuttons">
+			<input type="hidden" id = "usersmeet" name="usersmeet" value="">
 			<input type="submit" value="Meet Them Up">
 		</form>
 		<form action="{% url 'createmeetup' %}">
 			<input type="submit" value="Change persons to meet">
 		</form>
-		<form action="{% url 'profile' %}">
-			<input type="submit" value="Cancel">
+		<form name = "schedtomeet" action="{% url 'profile' %}">
+			<input type="submit" name = "schedtomeet" value="Cancel">
 		</form>
 	</div>
 </div>
+<button onclick="myFunction()">Try it</button>
+
+<p id="demo">
+<script>
+	var json = "{{users|safe}}".replace(/&quot;/g,"\"")
+	var array = new Array();
+	var array2 = new Array();
+	array = json.split(",");
+	for(var i=0;i<array.length;i++){
+		array2.push(array[i].replace(/\D/g, ''));
+	}
+	document.getElementById('usersmeet').value=array2;
+	
+	function myFunction() {
+		document.getElementById("demo").innerHTML = array2;//document.getElementById('schedule').value;
+	}
+	
+</script>
 {% endblock %}
