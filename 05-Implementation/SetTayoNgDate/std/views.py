@@ -225,14 +225,15 @@ def createmeetup(request):
     return render(request,'std/createmeetup.html', {'names': toPass})
 
 def createmeetup2(request):
-	try:
-		curr_ID = request.session['curr_ID']
-	except:
-		return redirect(index)
-		
-	toPass = request.POST.getlist('users')
-	
-	return render(request,'std/createmeetup2.html', {'userID': toPass})
+    try:
+        curr_ID = request.session['curr_ID']
+    except:
+        return redirect(index)
+
+    toPass = request.POST.getlist('users')
+    toPass.append(curr_ID)
+    commonsched = Schedule.find_common_schedules(toPass)
+    return render(request,'std/createmeetup2.html', {'common': commonsched})
 
 def search(request):
     try:
