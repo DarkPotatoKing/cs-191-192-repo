@@ -7,9 +7,13 @@
 		<h1>List of Contacts</h1>
 		<form action="{% url 'createmeetup2' %}" method="post">
 			{% csrf_token %}
-			{% for i in names%}
-				{{ i.1 }} <input type="checkbox" name="users" value="{{ i.0 }}"> <br>	
-			{% endfor %}
+			{% if names%}
+				{% for i in names%}
+					{{ i.1 }} <input type="checkbox" name="users" value="{{ i.0 }}"> <br>	
+				{% endfor %}
+			{% else %}
+				<p> There are no other users </p>
+			{% endif %}
 	</div>
 	<div class="cmubuttons">
 			<input type="submit" value="Next Step">

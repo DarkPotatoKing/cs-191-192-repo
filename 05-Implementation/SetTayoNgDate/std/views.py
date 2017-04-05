@@ -47,40 +47,41 @@ def login(request):
 
 def profile(request):
     #checks if user is logged in, if not return to login screen
-    try:
-        curr_ID = request.session['curr_ID']
-    except:
-        return redirect(index)
-    #replace schedule all with a string of scheds (same as saveprofile)
-    theList = []
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
+	#replace schedule all with a string of scheds (same as saveprofile)
+	theList = []
+	
+	createMU = request.POST.getlist('schedtomeet')
+	uMeet = request.POST.get('usersmeet')
+	
+	for i in Schedule.objects.filter(user_id=curr_ID):
+		anotherList = ""    
+		#anotherList+=str(i.id)
+		if i.day==1:
+			anotherList+="M"
+		elif i.day==2:
+			anotherList+="T"
+		elif i.day==3:
+			anotherList+="W"
+		elif i.day==4:
+			anotherList+="H"
+		elif i.day==5:
+			anotherList+="F"
+		elif i.day==6:
+			anotherList+="S"
+		anotherList+=str((i.hour))
 
+		theList.append(anotherList)
 
-
-    for i in Schedule.objects.filter(user_id=curr_ID):
-        anotherList = ""    
-        #anotherList+=str(i.id)
-        if i.day==1:
-            anotherList+="M"
-        elif i.day==2:
-            anotherList+="T"
-        elif i.day==3:
-            anotherList+="W"
-        elif i.day==4:
-            anotherList+="H"
-        elif i.day==5:
-            anotherList+="F"
-        elif i.day==6:
-            anotherList+="S"
-        anotherList+=str((i.hour))
-
-        theList.append(anotherList)
-
-    toPass = ""
-    for x in xrange(len(theList)):
-        toPass+=str(theList[x])
-        if x != len(theList)-1:
-            toPass+=","
-    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'name':User.objects.get(id=curr_ID).name})
+	toPass = ""
+	for x in xrange(len(theList)):
+		toPass+=str(theList[x])
+		if x != len(theList)-1:
+			toPass+=","
+	return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name})
     #sched parameter in return is the schedule of user
 
 
@@ -225,15 +226,15 @@ def createmeetup(request):
     return render(request,'std/createmeetup.html', {'names': toPass})
 
 def createmeetup2(request):
-    try:
-        curr_ID = request.session['curr_ID']
-    except:
-        return redirect(index)
-
-    toPass = request.POST.getlist('users')
-    toPass.append(curr_ID)
-    commonsched = Schedule.find_common_schedules(toPass)
-    return render(request,'std/createmeetup2.html', {'common': commonsched})
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
+	
+	toPass = request.POST.getlist('users')
+	toPass.append(curr_ID)
+	commonsched = Schedule.find_common_schedules(toPass)
+	return render(request,'std/createmeetup2.html', {'common': commonsched, 'users': toPass})
 
 def search(request):
     try:
