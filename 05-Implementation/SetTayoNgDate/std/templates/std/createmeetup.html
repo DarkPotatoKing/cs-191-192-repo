@@ -5,11 +5,11 @@
 <div>
 	<div class = "signupform">
 		<h1>List of Contacts</h1>
-		<form action="{% url 'createmeetup2' %}" method="">
-			Person 1 <input type="checkbox" name="" value=""> <br>
-			Person 2 <input type="checkbox" name="" value=""> <br>
-			Person 3 <input type="checkbox" name="" value=""> <br>
-			Person 4 <input type="checkbox" name="" value=""> <br>
+		<form action="{% url 'createmeetup2' %}" method="post">
+			{% csrf_token %}
+			{% for i in names%}
+				{{ i.1 }} <input type="checkbox" name="users" value="{{ i.0 }}"> <br>	
+			{% endfor %}
 	</div>
 	<div class="cmubuttons">
 			<input type="submit" value="Next Step">

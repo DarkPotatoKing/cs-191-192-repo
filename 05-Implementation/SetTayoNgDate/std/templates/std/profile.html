@@ -7,11 +7,6 @@
 <div class="divtable">
 	<div id="homenav">
 		<p> Hi {{name}}</p>
-		<p>Name:</p>
-		<p>E-mail:</p>
-		<p>Contact Number: </p>
-		<p>Facebook account:</p>
-		<p>Twitter account: </p>
 		<label class="dropdown" id ="dd1" onclick="changetext1()">&#9660;Meet up requests</label>
 		<input type="checkbox">
 		<div id ="ddmeet">No meet ups</div>
@@ -270,14 +265,15 @@
 <script>
 	//get sched from database
 	var json = "{{sched}}".replace(/&quot;/g,"\"")	//bookmark reference code
-	var array = new Array();
-	array = json.split(",");
-	
-	//color the table
-	for(var i=0;i<array.length;i++){
-		document.getElementById(array[i]).style.backgroundColor = "#f00";
+	if(json!=""){
+		var array = new Array();
+		array = json.split(",");
+		
+		//color the table
+		for(var i=0;i<array.length;i++){
+			document.getElementById(array[i]).style.backgroundColor = "#f00";
+		}
 	}
-	
 	var rightArrow = '\u25b6';
 	var downArrow =  '\u25bc';
 	function changetext1(){
