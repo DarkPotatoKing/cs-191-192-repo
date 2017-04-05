@@ -225,11 +225,14 @@ def createmeetup(request):
     return render(request,'std/createmeetup.html', {'names': toPass})
 
 def createmeetup2(request):
-    try:
-        curr_ID = request.session['curr_ID']
-    except:
-        return redirect(index)
-    return render(request,'std/createmeetup2.html')
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
+		
+	toPass = request.POST.getlist('users')
+	
+	return render(request,'std/createmeetup2.html', {'userID': toPass})
 
 def search(request):
     try:

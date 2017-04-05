@@ -6,7 +6,7 @@
 {% block content %}
 <div class="divtable">
 	<div id="homenav">
-		<p>Edit your information and your schedule</p>
+		<p>Edit your schedule</p>
 		<p>Hi {{name}}</p>
 		<form action="{% url 'saveprofile' %}" method="post">				<!--gawing method=post-->
 			{% csrf_token %}
