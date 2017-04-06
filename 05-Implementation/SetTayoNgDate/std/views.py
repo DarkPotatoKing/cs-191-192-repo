@@ -85,7 +85,7 @@ def profile(request):
         toPass+=str(theList[x])
         if x != len(theList)-1:
             toPass+=","
-    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name, 'requests': MeetupRequest.objects.filter(member_id=curr_ID)})
+    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name, 'requests': MeetupRequest.objects.filter(member_id=curr_ID).description})
     #sched parameter in return is the schedule of user
 
 
@@ -230,15 +230,17 @@ def createmeetup(request):
     return render(request,'std/createmeetup.html', {'names': toPass})
 
 def createmeetup2(request):
-	try:
-		curr_ID = request.session['curr_ID']
-	except:
-		return redirect(index)
-	
-	toPass = request.POST.getlist('users')
-	toPass.append(curr_ID)
-	commonsched = Schedule.find_common_schedules(toPass)
-	return render(request,'std/createmeetup2.html', {'common': commonsched, 'users': toPass})
+    try:
+        curr_ID = request.session['curr_ID']
+    except:
+        return redirect(index)
+
+    toPass = request.POST.getlist('users')
+    if len(toPass)==0:
+        return redirect(createmeetup)
+    toPass.append(curr_ID)
+    commonsched = Schedule.find_common_schedules(toPass)
+    return render(request,'std/createmeetup2.html', {'common': commonsched, 'users': toPass})
 
 def savemeetup(request):
     try:
