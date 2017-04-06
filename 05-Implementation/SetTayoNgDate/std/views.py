@@ -22,6 +22,8 @@ This is a course requirement for CS 192 Software Engineering II under the superv
 
 from django.shortcuts import render, redirect
 from std.models import *
+import datetime
+from calendar import monthrange, isleap
 
 
 # Create your views here.
@@ -46,42 +48,44 @@ def login(request):
         return redirect(profile)
 
 def profile(request):
+
     #checks if user is logged in, if not return to login screen
-	try:
-		curr_ID = request.session['curr_ID']
-	except:
-		return redirect(index)
+    try:
+        curr_ID = request.session['curr_ID']
+    except:
+        return redirect(index)
 	#replace schedule all with a string of scheds (same as saveprofile)
-	theList = []
-	
-	createMU = request.POST.getlist('schedtomeet')
-	uMeet = request.POST.get('usersmeet')
-	
-	for i in Schedule.objects.filter(user_id=curr_ID):
-		anotherList = ""    
-		#anotherList+=str(i.id)
-		if i.day==1:
-			anotherList+="M"
-		elif i.day==2:
-			anotherList+="T"
-		elif i.day==3:
-			anotherList+="W"
-		elif i.day==4:
-			anotherList+="H"
-		elif i.day==5:
-			anotherList+="F"
-		elif i.day==6:
-			anotherList+="S"
-		anotherList+=str((i.hour))
+    theList = []
 
-		theList.append(anotherList)
+    createMU = request.POST.getlist('schedtomeet')
+    uMeet = request.POST.get('usersmeet')
+	
 
-	toPass = ""
-	for x in xrange(len(theList)):
-		toPass+=str(theList[x])
-		if x != len(theList)-1:
-			toPass+=","
-	return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name})
+    for i in Schedule.objects.filter(user_id=curr_ID):
+        anotherList = ""    
+        #anotherList+=str(i.id)
+        if i.day==1:
+            anotherList+="M"
+        elif i.day==2:
+            anotherList+="T"
+        elif i.day==3:
+            anotherList+="W"
+        elif i.day==4:
+            anotherList+="H"
+        elif i.day==5:
+            anotherList+="F"
+        elif i.day==6:
+            anotherList+="S"
+        anotherList+=str((i.hour))
+
+        theList.append(anotherList)
+
+    toPass = ""
+    for x in xrange(len(theList)):
+        toPass+=str(theList[x])
+        if x != len(theList)-1:
+            toPass+=","
+    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name, 'requests': MeetupRequest.objects.filter(member_id=curr_ID)})
     #sched parameter in return is the schedule of user
 
 
@@ -236,9 +240,61 @@ def createmeetup2(request):
 	commonsched = Schedule.find_common_schedules(toPass)
 	return render(request,'std/createmeetup2.html', {'common': commonsched, 'users': toPass})
 
-def search(request):
+def savemeetup(request):
     try:
         curr_ID = request.session['curr_ID']
     except:
         return redirect(index)
-    return render(request, 'std/search.html')
+    meetUps = request.POST.getlist('schedtomeet')
+    userList = request.POST.get('usersmeet')
+    userList = userList.split(',')
+    for i in userList:
+        i = int(i)
+
+    scheds = []
+    for i in xrange(len(meetUps)):
+        toAppend = []
+        if meetUps[i][0] == 'M':
+            toAppend.append(1)
+        elif meetUps[i][0] == 'T':
+            toAppend.append(2)
+        elif meetUps[i][0] == 'W':
+            toAppend.append(3)
+        elif meetUps[i][0] == 'H':
+            toAppend.append(4)
+        elif meetUps[i][0] == 'F':
+            toAppend.append(5)
+        elif meetUps[i][0] == 'S':
+            toAppend.append(6)
+        toAppend.append(int(meetUps[i][1:]))
+        scheds.append(toAppend)
+    currYear = datetime.date.today().year
+    currMonth = datetime.date.today().month
+    currDay = datetime.date.today().day
+    dayOfTheWeek = datetime.date.today().weekday()+1%7
+    for i in xrange(len(scheds)):
+        currHourStart = 7
+        currMinStart = 0
+        currHourEnd = 7
+        currMinEnd = 30
+        if scheds[i][1] == 1:
+            currHourStart=7
+        else:
+            currHourStart = 7 + (scheds[i][1]/2)
+        if scheds[i][1]%2 == 0:
+            currMinStart = 30
+        if currMinStart == 30:
+            currMinEnd = 0
+            currHourEnd = currHourStart+1
+        addDay =(scheds[i][0]-dayOfTheWeek)%7
+        if addDay==0:
+            addDay=7
+        meetUpDate = (currDay+addDay)%monthrange(currYear, currMonth)[1]
+        meetUpMonth = currMonth
+        if meetUpDate < currDay:
+            meetUpMonth+=1 if currMonth<12 else 1
+        meetUpYear = currYear if meetUpMonth >= currMonth else currYear+1
+        MeetupSchedule.add_meetup_sched(curr_ID, meetUpDate, meetUpMonth, meetUpYear, currHourStart, currMinStart, currHourEnd, currMinEnd, '')
+        for x in xrange(len(userList)):
+            MeetupRequest.add_meetup_request(MeetupSchedule.objects.latest('id').id, userList[x])
+    return redirect(profile)

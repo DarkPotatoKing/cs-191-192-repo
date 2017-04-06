@@ -5,7 +5,7 @@
 <div>
 	<div class = "signupform">
 		<h1>Available Schedules:</h1>
-		<form action="{% url 'profile' %}" method="post">
+		<form action="{% url 'savemeetup' %}" method="post">
 			{% csrf_token %}
 			{% load i18n %}
 			{% for i in common%}
