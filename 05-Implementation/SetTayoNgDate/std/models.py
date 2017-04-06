@@ -131,7 +131,7 @@ class MeetupSchedule(models.Model):
         sched.delete()
 
     # usage: MeetupSchedule.parse_table(meetup_times)
-    # returns day_of_the_week, start_hour, start_min, end_hour, end_min
+    # returns day_of_the_week, start_hour, start_minute, end_hour, end_min
     # returns None if invalid
     @classmethod
     def parse_table(cls, meetup_times):
