@@ -6,13 +6,26 @@
 {% block content %}
 <div class="divtable">
 	<div id="homenav">
-		<p> Hi {{name}}</p>
-		{% for i in requests %}
-			{{i}}
-		{% endfor %}
+		<h2 style="margin-left:1%;"> Hi, {{name}}</h2>
 		<label class="dropdown" id ="dd1" onclick="changetext1()">&#9660;Meet up requests</label>
 		<input type="checkbox">
-		<div id ="ddmeet">No meet ups</div>
+		<!--dagdagan ng if ikaw yung nag request, wag na i-show -->
+		{% if requests%}
+			<div id ="ddmeet">
+			{% for i in requests%}
+				{{i}}
+				Date: Day: Time:
+				<form action ="" method="post">
+					{% csrf_token%}
+					Going<input type="radio" id="confirmMU" name="confirm" value="{{i.id}}_1">		<!--condition: lagyan ng checked="true" sa kung ano man kapag may napili na si user dun {{i.is_attending}}-->
+					Not Going<input type="radio" id="declineMU" name="confirm" value="{{i.id}}_0">
+					<button type="submit"> Confirm </button>
+				</form>
+			{% endfor %}
+			</div>
+		{% else %}
+			<div id ="ddmeet">No meet ups</div>
+		{% endif %}
 		<!--<label class="dropdown" id ="dd2" onclick="changetext2()">&#9660;Contact requests</label>
 		<input type="checkbox">
 		<div id ="ddcontact">No request</div>
@@ -20,13 +33,13 @@
 		<input type="checkbox">
 		<div id ="ddyours">No contact</div>-->
 		<form action="{% url 'editprofile' %}">
-			<input type="submit" value="Edit Profile">
+			<input type="submit" value="Edit Profile" class="stdbuttons">
 		</form>
 		<form action="{% url 'createmeetup' %}" method="">
-			<input type="submit" value="Create Meet Up Schedule">
+			<input type="submit" value="Create Meet Up Schedule" class="stdbuttons">
 		</form>
 		<form action="{% url 'logout' %}">
-			<input type="submit" value="logout">
+			<input type="submit" value="Logout" class="stdbuttons">
 		</form>
 	</div>
 	
@@ -260,10 +273,6 @@
 			</tr>
 		</table>
 	</div>
-<!--<button onclick="myFunction()">Try it</button>
-
-<p id="demo"></p>-->
-</div>
 
 <script>
 	//get sched from database
@@ -311,9 +320,6 @@
 			document.getElementById('ddyours').style.display = 'block';
 		}
 	}
-	/*function myFunction() {
-		document.getElementById("demo").innerHTML = array;
-	}*/
 	
 </script>
 {% endblock %}
