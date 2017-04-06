@@ -240,6 +240,8 @@ def createmeetup2(request):
         return redirect(index)
 
     toPass = request.POST.getlist('users')
+    for i in xrange(len(toPass)):
+        toPass[i] = int(toPass[i])
     if len(toPass)==0:
         return redirect(createmeetup)
     toPass.append(curr_ID)
