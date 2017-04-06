@@ -9,6 +9,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 This is a course requirement for CS 192 Software Engineering II under the supervision of Asst. Prof. Ma. Rowena C. Solamo of the Department of Computer Science, College of Engineering, University of the Philippines, Diliman for the AY 2016-2017.
 
+Author: Kyle Rosales
+
 """
 
 #Changelogs:
@@ -204,7 +206,7 @@ class MeetupSchedule(models.Model):
 class MeetupRequest(models.Model):
     meetup_schedule_id = models.IntegerField()
     member_id = models.IntegerField()
-    is_attending = models.BooleanField(default=False)
+        is_attending = models.BooleanField(default=False)
 
     def __str__(self):
         return '(MeetupSched #{}: User#{}, Attending:{})'.format(self.meetup_schedule_id, self.member_id, self.is_attending)
