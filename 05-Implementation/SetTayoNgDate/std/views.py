@@ -88,8 +88,8 @@ def profile(request):
     scheduleQuery = MeetupRequest.objects.filter(member_id=curr_ID)
     meetupList = list()
     for q in scheduleQuery:
-        meetupList.append(q.get_meetup_schedule)
-    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name, 'requestTicket': scheduleQuery, 'descriptors': meetupList })
+        meetupList.append(q.get_meetup_schedule())
+    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name, 'requestTicket': zip(scheduleQuery,meetupList) })
     #sched parameter in return is the schedule of user
 
 
