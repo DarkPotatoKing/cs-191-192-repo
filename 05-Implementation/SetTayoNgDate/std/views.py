@@ -91,14 +91,14 @@ def profile(request):
 
 def register(request):
     #to do: add error detection for user creation
-    if request.POST.get('passw')!=request.POST.get('passw2'):
-        return render(request, 'std/login.html', {"passerror": 1})
-    try:
-        userExist =  User.objects.get(username=request.POST.get('uname'))
-        return render(request, 'std/login.html', {"passerror": 2})
-    except:
-        User.create(request.POST.get('uname'), request.POST.get('passw'), request.POST.get('identity'))    
-        return render(request, 'std/index.html')
+	if request.POST.get('passw')!=request.POST.get('passw2'):
+		return render(request, 'std/login.html', {"passerror": 1})
+	try:
+		userExist =  User.objects.get(username=request.POST.get('uname'))
+		return render(request, 'std/login.html', {"passerror": 2})
+	except:
+		User.create(request.POST.get('uname'), request.POST.get('passw'), request.POST.get('identity'))
+	return render(request, 'std/register.html')
 
 # def home(request):
 # 	#curr_ID = request.session['curr_ID']

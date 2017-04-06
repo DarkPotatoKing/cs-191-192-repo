@@ -12,17 +12,6 @@
 				{% for j in i%}
 					{% if not j %}
 						{% if forloop.counter == 2 %}
-							<!--{% with "Monday" as day and "M" as daycode%}
-								{% if forloop.parentloop.counter == 1%}
-									{% with "7:00AM - 7:30AM" as time and "1" as timecode%}
-										{{ day }},{{ time }}<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
-									{% endwith %}
-								{% elif forloop.parentloop.counter == 2%}
-									{% with "7:30AM - 8:00AM" as time and "2" as timecode%}
-										{{ day }},{{ time }}<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
-									{% endwith %}
-								{% endif %}
-							{% endwith %}-->
 							{% trans "Monday" as day %}
 							{% trans "M" as daycode %}
 						{% elif forloop.counter == 3 %}
@@ -120,10 +109,13 @@
 					{% endif %}
 				{% endfor %}
 			{% endfor %}
+			
 
 	</div>
+	
 
 	<div class="cmubuttons">
+			Meetup Description:<br><input type="text" name="description" value="{{ description }}" placeholder="Put description of meeting here"><br>
 			<input type="hidden" id = "usersmeet" name="usersmeet" value="">
 			<input type="submit" value="Meet Them Up">
 		</form>
@@ -135,9 +127,7 @@
 		</form>
 	</div>
 </div>
-<button onclick="myFunction()">Try it</button>
 
-<p id="demo">
 <script>
 	var json = "{{users|safe}}".replace(/&quot;/g,"\"")
 	var array = new Array();
@@ -148,9 +138,6 @@
 	}
 	document.getElementById('usersmeet').value=array2;
 	
-	function myFunction() {
-		document.getElementById("demo").innerHTML = array2;//document.getElementById('schedule').value;
-	}
 	
 </script>
 {% endblock %}
