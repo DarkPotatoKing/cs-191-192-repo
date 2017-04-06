@@ -32,8 +32,8 @@
 				<br>Description: {{j.description}}
 				<form action ="{% url 'accept' %}" method="post">
 					{% csrf_token%}
-					Going<input type="radio" id="confirmMU" name="confirm" value="{{i.id}}_1">		<!--condition: lagyan ng checked="true" sa kung ano man kapag may napili na si user dun {{i.is_attending}}-->
-					Not Going<input type="radio" id="declineMU" name="confirm" value="{{i.id}}_0">
+					Going<input type="radio" id="confirmMU" name="confirm" value="{{i.meetup_schedule_id}}_1">		<!--condition: lagyan ng checked="true" sa kung ano man kapag may napili na si user dun {{i.is_attending}}-->
+					Not Going<input type="radio" id="declineMU" name="confirm" value="{{i.meetup_schedule_id}}_0">
 					<button type="submit"> Confirm </button>
 				</form>
 			{% endfor %}
