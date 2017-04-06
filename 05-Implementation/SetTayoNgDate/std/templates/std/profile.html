@@ -10,11 +10,26 @@
 		<label class="dropdown" id ="dd1" onclick="changetext1()">&#9660;Meet up requests</label>
 		<input type="checkbox">
 		<!--dagdagan ng if ikaw yung nag request, wag na i-show -->
-		{% if requests%}
+		{% if requestTicket%}
 			<div id ="ddmeet">
-			{% for i in requests%}
-				{{i}}
-				Date: Day: Time:
+			{% for i,j in requestTicket%}
+				Date: {{j.date}}/ {{j.month}} / {{j.year}} <br>
+				
+				Start: {{j.start_hour}} :
+				{% if j.start_minute == 0 %}
+					{{j.start_minute}}0
+				{% else %}
+					{{j.start_minute}}
+				{% endif %}
+				
+				<br>End: {{j.end_hour}} : 
+				{% if j.end_minute == 0 %}
+					{{j.end_minute}}0
+				{% else %}
+					{{j.end_minute}}
+				{% endif %}
+				
+				<br>Description: {{j.description}}
 				<form action ="" method="post">
 					{% csrf_token%}
 					Going<input type="radio" id="confirmMU" name="confirm" value="{{i.id}}_1">		<!--condition: lagyan ng checked="true" sa kung ano man kapag may napili na si user dun {{i.is_attending}}-->
