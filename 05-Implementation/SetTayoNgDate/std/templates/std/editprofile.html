@@ -6,8 +6,8 @@
 {% block content %}
 <div class="divtable">
 	<div id="homenav">
-		<p>Edit your schedule</p>
-		<p>Hi {{name}}</p>
+		<h2 style="margin-left:1%;"> Hi, {{name}}</h2>
+		<h1 style="text-align:center;">Edit your schedule</h1>
 		<form action="{% url 'saveprofile' %}" method="post">				<!--gawing method=post-->
 			{% csrf_token %}
 			<!--<input id="forms1" type="text" name="" value="" placeholder = "Name">
@@ -16,10 +16,10 @@
 			<input id="forms1" type="text" name="" value="" placeholder = "Facebook account">
 			<input id="forms1" type="text" name="" value="" placeholder = "Twitter account">-->
 			<input type="hidden" id="schedule" name="schedule" value="">
-			<button type="submit"> Save changes </button>
+			<button type="submit" class="stdbuttons"> Save changes </button>
 		</form>
 		<form action="{% url 'profile' %}">
-			<input type="submit" value="Cancel">
+			<input type="submit" value="Cancel" class="stdbuttons">
 		</form>
 	</div>
 	

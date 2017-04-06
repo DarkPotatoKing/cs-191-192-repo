@@ -3,24 +3,33 @@
 
 {% block content %}
 <div>
-	<div class = "signupform">
-		<h1>List of Contacts</h1>
-		<form action="{% url 'createmeetup2' %}" method="post">
-			{% csrf_token %}
 			{% if names%}
+				<div class = "cmuform">
+				<h1>List of Contacts</h1>
+				<form action="{% url 'createmeetup2' %}" method="post">
+				{% csrf_token %}
 				{% for i in names%}
-					{{ i.1 }} <input type="checkbox" name="users" value="{{ i.0 }}"> <br>	
+					{{ i.1 }} <input type="checkbox" name="users" value="{{ i.0 }}"> <br>
 				{% endfor %}
+				</div>
+				<div class="cmubuttons">
+					<input type="submit" value="Next Step" class="stdbuttons">
+					</form>
+						<form action="{% url 'profile' %}">
+						<input type="submit" value="Cancel" class="stdbuttons">
+					</form>
+				</div>
 			{% else %}
-				<p> There are no other users </p>
+				<div class = "cmuform">
+					<h1>List of Contacts</h1>
+					<p> There are no other users </p>
+				</div>
+				<div class="cmubuttons">
+					<form action="{% url 'profile' %}">
+						<input type="submit" value="Cancel" class="stdbuttons">
+					</form>
+				</div>
 			{% endif %}
-	</div>
-	<div class="cmubuttons">
-			<input type="submit" value="Next Step">
-		</form>
-		<form action="{% url 'profile' %}">
-			<input type="submit" value="Cancel">
-		</form>
-	</div>
+	
 </div>
 {% endblock %}
