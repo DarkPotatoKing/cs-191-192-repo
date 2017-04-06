@@ -112,18 +112,19 @@ class MeetupSchedule(models.Model):
     start_minute = models.IntegerField()
     end_hour = models.IntegerField()
     end_minute = models.IntegerField()
+    sched_rep = models.IntegerField()
     description = models.TextField()
 
     def __str__(self):
-        return 'leader_id:{} {}/{}/{} {}:{} to {}:{} "{}"'.format(self.leader_id, self.date, self.month, self.year, self.start_hour, self.start_minute, self.end_hour, self.end_minute, self.description)
+        return 'leader_id:{} {}/{}/{} {}:{} to {}:{} {} "{}"'.format(self.leader_id, self.date, self.month, self.year, self.start_hour, self.start_minute, self.end_hour, self.end_minute, self.sched_rep, self.description)
 
     @classmethod
     def all(cls):
         return MeetupSchedule.objects.all()
 
     @classmethod
-    def add_meetup_sched(cls, leader_id, date, month, year, start_hour, start_minute, end_hour, end_minute, description = ''):
-        MeetupSchedule(leader_id=leader_id, date=date, month=month, year=year, start_hour=start_hour, start_minute=start_minute, end_hour=end_hour, end_minute=end_minute, description=description).save()
+    def add_meetup_sched(cls, leader_id, date, month, year, start_hour, start_minute, end_hour, end_minute, sched_rep,description = ''):
+        MeetupSchedule(leader_id=leader_id, date=date, month=month, year=year, start_hour=start_hour, start_minute=start_minute, end_hour=end_hour, end_minute=end_minute, sched_rep=sched_rep ,description=description).save()
 
     @classmethod
     def delete_sched(cls, sched_id):
