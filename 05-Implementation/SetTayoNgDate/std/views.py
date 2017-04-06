@@ -269,25 +269,18 @@ def savemeetup(request):
             toAppend.append(6)
         toAppend.append(int(meetUps[i][1:]))
         scheds.append(toAppend)
-    currYear = datetime.date.today().year
-    currMonth = datetime.date.today().month
-    currDay = datetime.date.today().day
-    dayOfTheWeek = datetime.date.today().weekday()+1%7
-    for i in xrange(len(scheds)):
-        currHourStart = 7
-        currMinStart = 0
-        currHourEnd = 7
-        currMinEnd = 30
-        if scheds[i][1] == 1:
-            currHourStart=7
-        else:
-            currHourStart = 7 + (scheds[i][1]/2)
-        if scheds[i][1]%2 == 0:
-            currMinStart = 30
-        if currMinStart == 30:
-            currMinEnd = 0
-            currHourEnd = currHourStart+1
-        addDay =(scheds[i][0]-dayOfTheWeek)%7
+    
+    toSave = MeetupSchedule.parse_table(scheds)
+    if toSave == None:
+        commonsched = Schedule.find_common_schedules(userList)
+        return render(request, 'std/createmeetup2.html', {'common': commonsched, 'users': userList, 'error': 1})
+    else:
+        currYear = datetime.date.today().year
+        currMonth = datetime.date.today().month
+        currDay = datetime.date.today().day
+        dayOfTheWeek = datetime.date.today().weekday()+1%7
+
+        addDay =(scheds[0][0]-dayOfTheWeek)%7
         if addDay==0:
             addDay=7
         meetUpDate = (currDay+addDay)%monthrange(currYear, currMonth)[1]
@@ -295,7 +288,7 @@ def savemeetup(request):
         if meetUpDate < currDay:
             meetUpMonth+=1 if currMonth<12 else 1
         meetUpYear = currYear if meetUpMonth >= currMonth else currYear+1
-        MeetupSchedule.add_meetup_sched(curr_ID, meetUpDate, meetUpMonth, meetUpYear, currHourStart, currMinStart, currHourEnd, currMinEnd, scheds[i][1],description)
+        MeetupSchedule.add_meetup_sched(curr_ID, meetUpDate, meetUpMonth, meetUpYear, toSave[1], toSave[2], toSave[3], toSave[4],description)
         for x in xrange(len(userList)):
             MeetupRequest.add_meetup_request(MeetupSchedule.objects.latest('id').id, userList[x])
-    return redirect(profile)
+        return redirect(profile)
