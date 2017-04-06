@@ -251,6 +251,8 @@ class MeetupRequest(models.Model):
             else:
                 minute = 30
 
-
     def get_description(self):
         return MeetupSchedule.objects.get(id=self.meetup_schedule_id).description
+
+    def get_meetup_schedule(self):
+        return MeetupSchedule.objects.get(id=self.meetup_schedule_id)
