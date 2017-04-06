@@ -3,50 +3,37 @@
 
 {% block content %}
 <div>
-	<div class = "signupform">
-		<h1>Available Schedules:</h1>
+	<div class = "cmuform">
+		<h1>Available Schedules</h1>
+		<h3>Please select consecutive time slots on a single day</h3>
 		<form action="{% url 'savemeetup' %}" method="post">
 			{% csrf_token %}
 			{% load i18n %}
+			<h2 class ="dayscmu" >MONDAY</h2>
 			{% for i in common%}
 				{% for j in i%}
 					{% if not j %}
 						{% if forloop.counter == 2 %}
 							{% trans "Monday" as day %}
 							{% trans "M" as daycode %}
-						{% elif forloop.counter == 3 %}
-							{% trans "Tuesday" as day %}
-							{% trans "T" as daycode %}
-						{% elif forloop.counter == 4 %}
-							{% trans "Wednesday" as day %}
-							{% trans "W" as daycode %}
-						{% elif forloop.counter == 5 %}
-							{% trans "Thursday" as day %}
-							{% trans "H" as daycode %}
-						{% elif forloop.counter == 6 %}
-							{% trans "Friday" as day %}
-							{% trans "F" as daycode %}
-						{% elif forloop.counter == 7 %}
-							{% trans "Saturday" as day %}
-							{% trans "S" as daycode %}
 						{% endif %}
 						{% if forloop.parentloop.counter == 1 %}
-							{% trans "7:00 AM - 7:30 AM" as time %}
+							{% trans "07:00 AM - 07:30 AM" as time %}
 							{% trans "1" as timecode %}
 						{% elif forloop.parentloop.counter == 2 %}
-							{% trans "7:30 AM - 8:00 AM" as time %}
+							{% trans "07:30 AM - 08:00 AM" as time %}
 							{% trans "2" as timecode %}
 						{% elif forloop.parentloop.counter == 3 %}
-							{% trans "8:00 AM - 8:30 AM" as time %}
+							{% trans "08:00 AM - 08:30 AM" as time %}
 							{% trans "3" as timecode %}
 						{% elif forloop.parentloop.counter == 4 %}
-							{% trans "8:30 AM - 9:00 AM" as time %}
+							{% trans "08:30 AM - 09:00 AM" as time %}
 							{% trans "4" as timecode %}
 						{% elif forloop.parentloop.counter == 5 %}
-							{% trans "9:00 AM - 9:30 AM" as time %}
+							{% trans "09:00 AM - 09:30 AM" as time %}
 							{% trans "5" as timecode %}
 						{% elif forloop.parentloop.counter == 6 %}
-							{% trans "9:30 AM - 10:00 AM" as time %}
+							{% trans "09:30 AM - 10:00 AM" as time %}
 							{% trans "6" as timecode %}
 						{% elif forloop.parentloop.counter == 7 %}
 							{% trans "10:00 AM - 10:30 AM" as time %}
@@ -64,47 +51,482 @@
 							{% trans "12:00 PM - 12:30 PM" as time %}
 							{% trans "11" as timecode %}
 						{% elif forloop.parentloop.counter == 12 %}
-							{% trans "12:30 PM - 1:00 PM" as time %}
+							{% trans "12:30 PM - 01:00 PM" as time %}
 							{% trans "12" as timecode %}
 						{% elif forloop.parentloop.counter == 13 %}
-							{% trans "1:00 PM - 1:30 PM" as time %}
+							{% trans "01:00 PM - 01:30 PM" as time %}
 							{% trans "13" as timecode %}
 						{% elif forloop.parentloop.counter == 14 %}
-							{% trans "1:30 PM - 2:00 PM" as time %}
+							{% trans "01:30 PM - 02:00 PM" as time %}
 							{% trans "14" as timecode %}
 						{% elif forloop.parentloop.counter == 15 %}
-							{% trans "2:00 PM - 2:30 PM" as time %}
+							{% trans "02:00 PM - 02:30 PM" as time %}
 							{% trans "15" as timecode %}
 						{% elif forloop.parentloop.counter == 16 %}
-							{% trans "2:30 PM - 3:00 PM" as time %}
+							{% trans "02:30 PM - 03:00 PM" as time %}
 							{% trans "16" as timecode %}
 						{% elif forloop.parentloop.counter == 17 %}
-							{% trans "3:00 PM - 3:30 PM" as time %}
+							{% trans "03:00 PM - 03:30 PM" as time %}
 							{% trans "17" as timecode %}
 						{% elif forloop.parentloop.counter == 18 %}
-							{% trans "3:30 PM - 4:00 PM" as time %}
+							{% trans "03:30 PM - 04:00 PM" as time %}
 							{% trans "18" as timecode %}
 						{% elif forloop.parentloop.counter == 19 %}
-							{% trans "4:00 PM - 4:30 PM" as time %}
+							{% trans "04:00 PM - 04:30 PM" as time %}
 							{% trans "19" as timecode %}
 						{% elif forloop.parentloop.counter == 20 %}
-							{% trans "4:30 PM - 5:00 PM" as time %}
+							{% trans "04:30 PM - 05:00 PM" as time %}
 							{% trans "20" as timecode %}
 						{% elif forloop.parentloop.counter == 21 %}
-							{% trans "5:00 PM - 5:30 PM" as time %}
+							{% trans "05:00 PM - 05:30 PM" as time %}
 							{% trans "21" as timecode %}
 						{% elif forloop.parentloop.counter == 22 %}
-							{% trans "5:30 PM - 6:00 PM" as time %}
+							{% trans "05:30 PM - 06:00 PM" as time %}
 							{% trans "22" as timecode %}
 						{% elif forloop.parentloop.counter == 23 %}
-							{% trans "6:00 PM - 6:30 PM" as time %}
+							{% trans "06:00 PM - 06:30 PM" as time %}
 							{% trans "23" as timecode %}
 						{% elif forloop.parentloop.counter == 24 %}
-							{% trans "6:30 PM - 7:00 PM" as time %}
+							{% trans "06:30 PM - 07:00 PM" as time %}
 							{% trans "24" as timecode %}
 						{% endif %}
-						{%if forloop.counter != 1 %}
-							{{ day }},{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+						{%if forloop.counter == 2 %}
+							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+			<h2 class ="dayscmu">TUESDAY</h2>
+			{% for i in common%}
+				{% for j in i%}
+					{% if not j %}
+						{% if forloop.counter == 3 %}
+							{% trans "Tuesday" as day %}
+							{% trans "T" as daycode %}
+						{% endif %}
+						{% if forloop.parentloop.counter == 1 %}
+							{% trans "07:00 AM - 07:30 AM" as time %}
+							{% trans "1" as timecode %}
+						{% elif forloop.parentloop.counter == 2 %}
+							{% trans "07:30 AM - 08:00 AM" as time %}
+							{% trans "2" as timecode %}
+						{% elif forloop.parentloop.counter == 3 %}
+							{% trans "08:00 AM - 08:30 AM" as time %}
+							{% trans "3" as timecode %}
+						{% elif forloop.parentloop.counter == 4 %}
+							{% trans "08:30 AM - 09:00 AM" as time %}
+							{% trans "4" as timecode %}
+						{% elif forloop.parentloop.counter == 5 %}
+							{% trans "09:00 AM - 09:30 AM" as time %}
+							{% trans "5" as timecode %}
+						{% elif forloop.parentloop.counter == 6 %}
+							{% trans "09:30 AM - 10:00 AM" as time %}
+							{% trans "6" as timecode %}
+						{% elif forloop.parentloop.counter == 7 %}
+							{% trans "10:00 AM - 10:30 AM" as time %}
+							{% trans "7" as timecode %}
+						{% elif forloop.parentloop.counter == 8 %}
+							{% trans "10:30 AM - 11:00 AM" as time %}
+							{% trans "8" as timecode %}
+						{% elif forloop.parentloop.counter == 9 %}
+							{% trans "11:00 AM - 11:30 AM" as time %}
+							{% trans "9" as timecode %}
+						{% elif forloop.parentloop.counter == 10 %}
+							{% trans "11:30 AM - 12:00 PM" as time %}
+							{% trans "10" as timecode %}
+						{% elif forloop.parentloop.counter == 11 %}
+							{% trans "12:00 PM - 12:30 PM" as time %}
+							{% trans "11" as timecode %}
+						{% elif forloop.parentloop.counter == 12 %}
+							{% trans "12:30 PM - 01:00 PM" as time %}
+							{% trans "12" as timecode %}
+						{% elif forloop.parentloop.counter == 13 %}
+							{% trans "01:00 PM - 01:30 PM" as time %}
+							{% trans "13" as timecode %}
+						{% elif forloop.parentloop.counter == 14 %}
+							{% trans "01:30 PM - 02:00 PM" as time %}
+							{% trans "14" as timecode %}
+						{% elif forloop.parentloop.counter == 15 %}
+							{% trans "02:00 PM - 02:30 PM" as time %}
+							{% trans "15" as timecode %}
+						{% elif forloop.parentloop.counter == 16 %}
+							{% trans "02:30 PM - 03:00 PM" as time %}
+							{% trans "16" as timecode %}
+						{% elif forloop.parentloop.counter == 17 %}
+							{% trans "03:00 PM - 03:30 PM" as time %}
+							{% trans "17" as timecode %}
+						{% elif forloop.parentloop.counter == 18 %}
+							{% trans "03:30 PM - 04:00 PM" as time %}
+							{% trans "18" as timecode %}
+						{% elif forloop.parentloop.counter == 19 %}
+							{% trans "04:00 PM - 04:30 PM" as time %}
+							{% trans "19" as timecode %}
+						{% elif forloop.parentloop.counter == 20 %}
+							{% trans "04:30 PM - 05:00 PM" as time %}
+							{% trans "20" as timecode %}
+						{% elif forloop.parentloop.counter == 21 %}
+							{% trans "05:00 PM - 05:30 PM" as time %}
+							{% trans "21" as timecode %}
+						{% elif forloop.parentloop.counter == 22 %}
+							{% trans "05:30 PM - 06:00 PM" as time %}
+							{% trans "22" as timecode %}
+						{% elif forloop.parentloop.counter == 23 %}
+							{% trans "06:00 PM - 06:30 PM" as time %}
+							{% trans "23" as timecode %}
+						{% elif forloop.parentloop.counter == 24 %}
+							{% trans "06:30 PM - 07:00 PM" as time %}
+							{% trans "24" as timecode %}
+						{% endif %}
+						{%if forloop.counter == 3 %}
+							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+			<h2 class ="dayscmu">WEDNESDAY</h2>
+			{% for i in common%}
+				{% for j in i%}
+					{% if not j %}
+						{% if forloop.counter == 4 %}
+							{% trans "Wednesday" as day %}
+							{% trans "W" as daycode %}
+						{% endif %}
+						{% if forloop.parentloop.counter == 1 %}
+							{% trans "07:00 AM - 07:30 AM" as time %}
+							{% trans "1" as timecode %}
+						{% elif forloop.parentloop.counter == 2 %}
+							{% trans "07:30 AM - 08:00 AM" as time %}
+							{% trans "2" as timecode %}
+						{% elif forloop.parentloop.counter == 3 %}
+							{% trans "08:00 AM - 08:30 AM" as time %}
+							{% trans "3" as timecode %}
+						{% elif forloop.parentloop.counter == 4 %}
+							{% trans "08:30 AM - 09:00 AM" as time %}
+							{% trans "4" as timecode %}
+						{% elif forloop.parentloop.counter == 5 %}
+							{% trans "09:00 AM - 09:30 AM" as time %}
+							{% trans "5" as timecode %}
+						{% elif forloop.parentloop.counter == 6 %}
+							{% trans "09:30 AM - 10:00 AM" as time %}
+							{% trans "6" as timecode %}
+						{% elif forloop.parentloop.counter == 7 %}
+							{% trans "10:00 AM - 10:30 AM" as time %}
+							{% trans "7" as timecode %}
+						{% elif forloop.parentloop.counter == 8 %}
+							{% trans "10:30 AM - 11:00 AM" as time %}
+							{% trans "8" as timecode %}
+						{% elif forloop.parentloop.counter == 9 %}
+							{% trans "11:00 AM - 11:30 AM" as time %}
+							{% trans "9" as timecode %}
+						{% elif forloop.parentloop.counter == 10 %}
+							{% trans "11:30 AM - 12:00 PM" as time %}
+							{% trans "10" as timecode %}
+						{% elif forloop.parentloop.counter == 11 %}
+							{% trans "12:00 PM - 12:30 PM" as time %}
+							{% trans "11" as timecode %}
+						{% elif forloop.parentloop.counter == 12 %}
+							{% trans "12:30 PM - 01:00 PM" as time %}
+							{% trans "12" as timecode %}
+						{% elif forloop.parentloop.counter == 13 %}
+							{% trans "01:00 PM - 01:30 PM" as time %}
+							{% trans "13" as timecode %}
+						{% elif forloop.parentloop.counter == 14 %}
+							{% trans "01:30 PM - 02:00 PM" as time %}
+							{% trans "14" as timecode %}
+						{% elif forloop.parentloop.counter == 15 %}
+							{% trans "02:00 PM - 02:30 PM" as time %}
+							{% trans "15" as timecode %}
+						{% elif forloop.parentloop.counter == 16 %}
+							{% trans "02:30 PM - 03:00 PM" as time %}
+							{% trans "16" as timecode %}
+						{% elif forloop.parentloop.counter == 17 %}
+							{% trans "03:00 PM - 03:30 PM" as time %}
+							{% trans "17" as timecode %}
+						{% elif forloop.parentloop.counter == 18 %}
+							{% trans "03:30 PM - 04:00 PM" as time %}
+							{% trans "18" as timecode %}
+						{% elif forloop.parentloop.counter == 19 %}
+							{% trans "04:00 PM - 04:30 PM" as time %}
+							{% trans "19" as timecode %}
+						{% elif forloop.parentloop.counter == 20 %}
+							{% trans "04:30 PM - 05:00 PM" as time %}
+							{% trans "20" as timecode %}
+						{% elif forloop.parentloop.counter == 21 %}
+							{% trans "05:00 PM - 05:30 PM" as time %}
+							{% trans "21" as timecode %}
+						{% elif forloop.parentloop.counter == 22 %}
+							{% trans "05:30 PM - 06:00 PM" as time %}
+							{% trans "22" as timecode %}
+						{% elif forloop.parentloop.counter == 23 %}
+							{% trans "06:00 PM - 06:30 PM" as time %}
+							{% trans "23" as timecode %}
+						{% elif forloop.parentloop.counter == 24 %}
+							{% trans "06:30 PM - 07:00 PM" as time %}
+							{% trans "24" as timecode %}
+						{% endif %}
+						{%if forloop.counter == 4 %}
+							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+			<h2 class ="dayscmu">THURSDAY</h2>
+			{% for i in common%}
+				{% for j in i%}
+					{% if not j %}
+						{% if forloop.counter == 5 %}
+							{% trans "Thursday" as day %}
+							{% trans "H" as daycode %}
+						{% endif %}
+						{% if forloop.parentloop.counter == 1 %}
+							{% trans "07:00 AM - 07:30 AM" as time %}
+							{% trans "1" as timecode %}
+						{% elif forloop.parentloop.counter == 2 %}
+							{% trans "07:30 AM - 08:00 AM" as time %}
+							{% trans "2" as timecode %}
+						{% elif forloop.parentloop.counter == 3 %}
+							{% trans "08:00 AM - 08:30 AM" as time %}
+							{% trans "3" as timecode %}
+						{% elif forloop.parentloop.counter == 4 %}
+							{% trans "08:30 AM - 09:00 AM" as time %}
+							{% trans "4" as timecode %}
+						{% elif forloop.parentloop.counter == 5 %}
+							{% trans "09:00 AM - 09:30 AM" as time %}
+							{% trans "5" as timecode %}
+						{% elif forloop.parentloop.counter == 6 %}
+							{% trans "09:30 AM - 10:00 AM" as time %}
+							{% trans "6" as timecode %}
+						{% elif forloop.parentloop.counter == 7 %}
+							{% trans "10:00 AM - 10:30 AM" as time %}
+							{% trans "7" as timecode %}
+						{% elif forloop.parentloop.counter == 8 %}
+							{% trans "10:30 AM - 11:00 AM" as time %}
+							{% trans "8" as timecode %}
+						{% elif forloop.parentloop.counter == 9 %}
+							{% trans "11:00 AM - 11:30 AM" as time %}
+							{% trans "9" as timecode %}
+						{% elif forloop.parentloop.counter == 10 %}
+							{% trans "11:30 AM - 12:00 PM" as time %}
+							{% trans "10" as timecode %}
+						{% elif forloop.parentloop.counter == 11 %}
+							{% trans "12:00 PM - 12:30 PM" as time %}
+							{% trans "11" as timecode %}
+						{% elif forloop.parentloop.counter == 12 %}
+							{% trans "12:30 PM - 01:00 PM" as time %}
+							{% trans "12" as timecode %}
+						{% elif forloop.parentloop.counter == 13 %}
+							{% trans "01:00 PM - 01:30 PM" as time %}
+							{% trans "13" as timecode %}
+						{% elif forloop.parentloop.counter == 14 %}
+							{% trans "01:30 PM - 02:00 PM" as time %}
+							{% trans "14" as timecode %}
+						{% elif forloop.parentloop.counter == 15 %}
+							{% trans "02:00 PM - 02:30 PM" as time %}
+							{% trans "15" as timecode %}
+						{% elif forloop.parentloop.counter == 16 %}
+							{% trans "02:30 PM - 03:00 PM" as time %}
+							{% trans "16" as timecode %}
+						{% elif forloop.parentloop.counter == 17 %}
+							{% trans "03:00 PM - 03:30 PM" as time %}
+							{% trans "17" as timecode %}
+						{% elif forloop.parentloop.counter == 18 %}
+							{% trans "03:30 PM - 04:00 PM" as time %}
+							{% trans "18" as timecode %}
+						{% elif forloop.parentloop.counter == 19 %}
+							{% trans "04:00 PM - 04:30 PM" as time %}
+							{% trans "19" as timecode %}
+						{% elif forloop.parentloop.counter == 20 %}
+							{% trans "04:30 PM - 05:00 PM" as time %}
+							{% trans "20" as timecode %}
+						{% elif forloop.parentloop.counter == 21 %}
+							{% trans "05:00 PM - 05:30 PM" as time %}
+							{% trans "21" as timecode %}
+						{% elif forloop.parentloop.counter == 22 %}
+							{% trans "05:30 PM - 06:00 PM" as time %}
+							{% trans "22" as timecode %}
+						{% elif forloop.parentloop.counter == 23 %}
+							{% trans "06:00 PM - 06:30 PM" as time %}
+							{% trans "23" as timecode %}
+						{% elif forloop.parentloop.counter == 24 %}
+							{% trans "06:30 PM - 07:00 PM" as time %}
+							{% trans "24" as timecode %}
+						{% endif %}
+						{%if forloop.counter == 5 %}
+							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+			<h2 class ="dayscmu">FRIDAY</h2>
+			{% for i in common%}
+				{% for j in i%}
+					{% if not j %}
+						{% if forloop.counter == 6 %}
+							{% trans "Friday" as day %}
+							{% trans "F" as daycode %}
+						{% endif %}
+						{% if forloop.parentloop.counter == 1 %}
+							{% trans "07:00 AM - 07:30 AM" as time %}
+							{% trans "1" as timecode %}
+						{% elif forloop.parentloop.counter == 2 %}
+							{% trans "07:30 AM - 08:00 AM" as time %}
+							{% trans "2" as timecode %}
+						{% elif forloop.parentloop.counter == 3 %}
+							{% trans "08:00 AM - 08:30 AM" as time %}
+							{% trans "3" as timecode %}
+						{% elif forloop.parentloop.counter == 4 %}
+							{% trans "08:30 AM - 09:00 AM" as time %}
+							{% trans "4" as timecode %}
+						{% elif forloop.parentloop.counter == 5 %}
+							{% trans "09:00 AM - 09:30 AM" as time %}
+							{% trans "5" as timecode %}
+						{% elif forloop.parentloop.counter == 6 %}
+							{% trans "09:30 AM - 10:00 AM" as time %}
+							{% trans "6" as timecode %}
+						{% elif forloop.parentloop.counter == 7 %}
+							{% trans "10:00 AM - 10:30 AM" as time %}
+							{% trans "7" as timecode %}
+						{% elif forloop.parentloop.counter == 8 %}
+							{% trans "10:30 AM - 11:00 AM" as time %}
+							{% trans "8" as timecode %}
+						{% elif forloop.parentloop.counter == 9 %}
+							{% trans "11:00 AM - 11:30 AM" as time %}
+							{% trans "9" as timecode %}
+						{% elif forloop.parentloop.counter == 10 %}
+							{% trans "11:30 AM - 12:00 PM" as time %}
+							{% trans "10" as timecode %}
+						{% elif forloop.parentloop.counter == 11 %}
+							{% trans "12:00 PM - 12:30 PM" as time %}
+							{% trans "11" as timecode %}
+						{% elif forloop.parentloop.counter == 12 %}
+							{% trans "12:30 PM - 01:00 PM" as time %}
+							{% trans "12" as timecode %}
+						{% elif forloop.parentloop.counter == 13 %}
+							{% trans "01:00 PM - 01:30 PM" as time %}
+							{% trans "13" as timecode %}
+						{% elif forloop.parentloop.counter == 14 %}
+							{% trans "01:30 PM - 02:00 PM" as time %}
+							{% trans "14" as timecode %}
+						{% elif forloop.parentloop.counter == 15 %}
+							{% trans "02:00 PM - 02:30 PM" as time %}
+							{% trans "15" as timecode %}
+						{% elif forloop.parentloop.counter == 16 %}
+							{% trans "02:30 PM - 03:00 PM" as time %}
+							{% trans "16" as timecode %}
+						{% elif forloop.parentloop.counter == 17 %}
+							{% trans "03:00 PM - 03:30 PM" as time %}
+							{% trans "17" as timecode %}
+						{% elif forloop.parentloop.counter == 18 %}
+							{% trans "03:30 PM - 04:00 PM" as time %}
+							{% trans "18" as timecode %}
+						{% elif forloop.parentloop.counter == 19 %}
+							{% trans "04:00 PM - 04:30 PM" as time %}
+							{% trans "19" as timecode %}
+						{% elif forloop.parentloop.counter == 20 %}
+							{% trans "04:30 PM - 05:00 PM" as time %}
+							{% trans "20" as timecode %}
+						{% elif forloop.parentloop.counter == 21 %}
+							{% trans "05:00 PM - 05:30 PM" as time %}
+							{% trans "21" as timecode %}
+						{% elif forloop.parentloop.counter == 22 %}
+							{% trans "05:30 PM - 06:00 PM" as time %}
+							{% trans "22" as timecode %}
+						{% elif forloop.parentloop.counter == 23 %}
+							{% trans "06:00 PM - 06:30 PM" as time %}
+							{% trans "23" as timecode %}
+						{% elif forloop.parentloop.counter == 24 %}
+							{% trans "06:30 PM - 07:00 PM" as time %}
+							{% trans "24" as timecode %}
+						{% endif %}
+						{%if forloop.counter == 6 %}
+							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+						{% endif %}
+					{% endif %}
+				{% endfor %}
+			{% endfor %}
+			<h2 class ="dayscmu">SATURDAY</h2>
+			{% for i in common%}
+				{% for j in i%}
+					{% if not j %}
+						{% if forloop.counter == 7 %}
+							{% trans "Saturday" as day %}
+							{% trans "S" as daycode %}
+						{% endif %}
+						{% if forloop.parentloop.counter == 1 %}
+							{% trans "07:00 AM - 07:30 AM" as time %}
+							{% trans "1" as timecode %}
+						{% elif forloop.parentloop.counter == 2 %}
+							{% trans "07:30 AM - 08:00 AM" as time %}
+							{% trans "2" as timecode %}
+						{% elif forloop.parentloop.counter == 3 %}
+							{% trans "08:00 AM - 08:30 AM" as time %}
+							{% trans "3" as timecode %}
+						{% elif forloop.parentloop.counter == 4 %}
+							{% trans "08:30 AM - 09:00 AM" as time %}
+							{% trans "4" as timecode %}
+						{% elif forloop.parentloop.counter == 5 %}
+							{% trans "09:00 AM - 09:30 AM" as time %}
+							{% trans "5" as timecode %}
+						{% elif forloop.parentloop.counter == 6 %}
+							{% trans "09:30 AM - 10:00 AM" as time %}
+							{% trans "6" as timecode %}
+						{% elif forloop.parentloop.counter == 7 %}
+							{% trans "10:00 AM - 10:30 AM" as time %}
+							{% trans "7" as timecode %}
+						{% elif forloop.parentloop.counter == 8 %}
+							{% trans "10:30 AM - 11:00 AM" as time %}
+							{% trans "8" as timecode %}
+						{% elif forloop.parentloop.counter == 9 %}
+							{% trans "11:00 AM - 11:30 AM" as time %}
+							{% trans "9" as timecode %}
+						{% elif forloop.parentloop.counter == 10 %}
+							{% trans "11:30 AM - 12:00 PM" as time %}
+							{% trans "10" as timecode %}
+						{% elif forloop.parentloop.counter == 11 %}
+							{% trans "12:00 PM - 12:30 PM" as time %}
+							{% trans "11" as timecode %}
+						{% elif forloop.parentloop.counter == 12 %}
+							{% trans "12:30 PM - 01:00 PM" as time %}
+							{% trans "12" as timecode %}
+						{% elif forloop.parentloop.counter == 13 %}
+							{% trans "01:00 PM - 01:30 PM" as time %}
+							{% trans "13" as timecode %}
+						{% elif forloop.parentloop.counter == 14 %}
+							{% trans "01:30 PM - 02:00 PM" as time %}
+							{% trans "14" as timecode %}
+						{% elif forloop.parentloop.counter == 15 %}
+							{% trans "02:00 PM - 02:30 PM" as time %}
+							{% trans "15" as timecode %}
+						{% elif forloop.parentloop.counter == 16 %}
+							{% trans "02:30 PM - 03:00 PM" as time %}
+							{% trans "16" as timecode %}
+						{% elif forloop.parentloop.counter == 17 %}
+							{% trans "03:00 PM - 03:30 PM" as time %}
+							{% trans "17" as timecode %}
+						{% elif forloop.parentloop.counter == 18 %}
+							{% trans "03:30 PM - 04:00 PM" as time %}
+							{% trans "18" as timecode %}
+						{% elif forloop.parentloop.counter == 19 %}
+							{% trans "04:00 PM - 04:30 PM" as time %}
+							{% trans "19" as timecode %}
+						{% elif forloop.parentloop.counter == 20 %}
+							{% trans "04:30 PM - 05:00 PM" as time %}
+							{% trans "20" as timecode %}
+						{% elif forloop.parentloop.counter == 21 %}
+							{% trans "05:00 PM - 05:30 PM" as time %}
+							{% trans "21" as timecode %}
+						{% elif forloop.parentloop.counter == 22 %}
+							{% trans "05:30 PM - 06:00 PM" as time %}
+							{% trans "22" as timecode %}
+						{% elif forloop.parentloop.counter == 23 %}
+							{% trans "06:00 PM - 06:30 PM" as time %}
+							{% trans "23" as timecode %}
+						{% elif forloop.parentloop.counter == 24 %}
+							{% trans "06:30 PM - 07:00 PM" as time %}
+							{% trans "24" as timecode %}
+						{% endif %}
+						{%if forloop.counter == 7 %}
+							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
 						{% endif %}
 					{% endif %}
 				{% endfor %}
@@ -115,15 +537,17 @@
 	
 
 	<div class="cmubuttons">
-			Meetup Description:<br><input type="text" name="description" value="{{ description }}" placeholder="Put description of meeting here"><br>
+			<p style="margin-bottom:0; text-align:left; font-size:20px; margin-left:7%;">Meetup Description:</p>
+			<input type="text" name="description" value="{{ description }}" placeholder="Put description of meeting here" id="forms1" style="margin-bottom:0;">
+			<br>
 			<input type="hidden" id = "usersmeet" name="usersmeet" value="">
-			<input type="submit" value="Meet Them Up">
+			<input type="submit" value="Meet Them Up" class="stdbuttons">
 		</form>
 		<form action="{% url 'createmeetup' %}">
-			<input type="submit" value="Change persons to meet">
+			<input type="submit" value="Change persons to meet" class="stdbuttons">
 		</form>
 		<form name = "schedtomeet" action="{% url 'profile' %}">
-			<input type="submit" name = "schedtomeet" value="Cancel">
+			<input type="submit" name = "schedtomeet" value="Cancel" class="stdbuttons">
 		</form>
 	</div>
 </div>
