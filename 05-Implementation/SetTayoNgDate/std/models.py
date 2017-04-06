@@ -206,7 +206,7 @@ class MeetupSchedule(models.Model):
 class MeetupRequest(models.Model):
     meetup_schedule_id = models.IntegerField()
     member_id = models.IntegerField()
-        is_attending = models.BooleanField(default=False)
+    is_attending = models.BooleanField(default=False)
 
     def __str__(self):
         return '(MeetupSched #{}: User#{}, Attending:{})'.format(self.meetup_schedule_id, self.member_id, self.is_attending)

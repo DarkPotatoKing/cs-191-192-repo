@@ -30,7 +30,7 @@
 				{% endif %}
 				
 				<br>Description: {{j.description}}
-				<form action ="" method="post">
+				<form action ="{% url 'accept' %}" method="post">
 					{% csrf_token%}
 					Going<input type="radio" id="confirmMU" name="confirm" value="{{i.id}}_1">		<!--condition: lagyan ng checked="true" sa kung ano man kapag may napili na si user dun {{i.is_attending}}-->
 					Not Going<input type="radio" id="declineMU" name="confirm" value="{{i.id}}_0">

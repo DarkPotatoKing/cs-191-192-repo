@@ -27,6 +27,6 @@ urlpatterns = [
     url(r'^saveprofile/$', views.saveprofile, name='saveprofile'),
 	url(r'^createmeetup/$', views.createmeetup, name='createmeetup'),
 	url(r'^createmeetup2/$', views.createmeetup2, name='createmeetup2'),
-	#url(r'^search/$', views.search, name='search'),
+	url(r'^accept/$', views.accept, name='accept'),
     url(r'^$', views.index, name='index'),
 ]

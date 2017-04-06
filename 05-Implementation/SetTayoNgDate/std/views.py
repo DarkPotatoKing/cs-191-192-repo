@@ -298,3 +298,17 @@ def savemeetup(request):
         for x in xrange(len(userList)):
             MeetupRequest.add_meetup_request(MeetupSchedule.objects.latest('id').id, userList[x])
         return redirect(profile)
+
+def accept(request):
+    try:
+        curr_ID = request.session['curr_ID']
+    except:
+        return redirect(index)
+    confirm = request.POST.get('confirm')
+    if confirm == None:
+        return redirect(profile)
+    if confirm[-1]=='1':
+        MeetupRequest.objects.filter(member_id=curr_ID).filter(meetup_schedule_id=int(confirm[:-2]))[0].accept()
+        return redirect(profile)
+    elif confirm[-1]=='0':
+        return redirect(profile)
