@@ -248,6 +248,7 @@ def savemeetup(request):
     meetUps = request.POST.getlist('schedtomeet')
     userList = request.POST.get('usersmeet')
     userList = userList.split(',')
+    description = request.POST.get('description')
     for i in userList:
         i = int(i)
 
@@ -294,7 +295,7 @@ def savemeetup(request):
         if meetUpDate < currDay:
             meetUpMonth+=1 if currMonth<12 else 1
         meetUpYear = currYear if meetUpMonth >= currMonth else currYear+1
-        MeetupSchedule.add_meetup_sched(curr_ID, meetUpDate, meetUpMonth, meetUpYear, currHourStart, currMinStart, currHourEnd, currMinEnd, '')
+        MeetupSchedule.add_meetup_requestetup_sched(curr_ID, meetUpDate, meetUpMonth, meetUpYear, currHourStart, currMinStart, currHourEnd, currMinEnd, description)
         for x in xrange(len(userList)):
             MeetupRequest.add_meetup_request(MeetupSchedule.objects.latest('id').id, userList[x])
     return redirect(profile)
