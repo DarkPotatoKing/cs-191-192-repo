@@ -19,6 +19,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 
+import datetime
+
 class User(models.Model):
     username = models.CharField(max_length=20)
     password = models.CharField(max_length=256)
@@ -218,6 +220,37 @@ class MeetupRequest(models.Model):
     @classmethod
     def delete_meetup_request(cls, meetup_request_id):
         MeetupRequest.objects.get(id=meetup_request_id).delete()
+
+    def accept(self):
+        self.is_attending = True
+        self.save()
+        meetup_schedule = MeetupSchedule.objects.get(id=self.meetup_schedule_id)
+        day_of_the_week = datetime.date(meetup_schedule.year, meetup_schedule.month, meetup_schedule.date).isoweekday()
+
+        hour = meetup_schedule.start_hour
+        minute = meetup_schedule.start_minute
+        end_hour = meetup_schedule.end_hour
+        end_minute = meetup_schedule.end_minute
+
+        while not(hour == end_hour and minute == end_minute):
+            # def add_sched(cls, user_id, day, hour):
+            # 0 = Sunday to 6 = Saturday
+            # day = models.IntegerField()
+            # 1 = 07:00 - 07:30, 2 = 7:30 - 08:00, etc/
+            # hour = models.IntegerField()
+
+            h = 2 * hour - 13
+            if minute == 30:
+                h += 1
+
+            Schedule.add_sched(self.member_id, day_of_the_week, h)
+
+            if minute == 30:
+                minute = 0
+                hour += 1
+            else:
+                minute = 30
+
 
     def get_description(self):
         return MeetupSchedule.objects.get(id=self.meetup_schedule_id).description
