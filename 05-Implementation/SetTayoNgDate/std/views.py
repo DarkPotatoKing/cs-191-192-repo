@@ -85,7 +85,11 @@ def profile(request):
         toPass+=str(theList[x])
         if x != len(theList)-1:
             toPass+=","
-    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name, 'requests': MeetupRequest.objects.filter(member_id=curr_ID).description})
+    scheduleQuery = MeetupRequest.objects.filter(member_id=curr_ID)
+    meetupList = list()
+    for q in scheduleQuery:
+        meetupList.append()
+    return render(request, 'std/profile.html', {'uID': curr_ID, 'sched': toPass, 'cmu': createMU, 'users': uMeet, 'name':User.objects.get(id=curr_ID).name })
     #sched parameter in return is the schedule of user
 
 
