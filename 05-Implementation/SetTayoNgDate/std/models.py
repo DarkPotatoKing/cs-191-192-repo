@@ -130,6 +130,75 @@ class MeetupSchedule(models.Model):
         sched =  MeetupSchedule.objects.get(id=sched_id)
         sched.delete()
 
+    # usage: MeetupSchedule.parse_table(meetup_times)
+    # returns day_of_the_week, start_hour, start_min, end_hour, end_min
+    # returns None if invalid
+    @classmethod
+    def parse_table(cls, meetup_times):
+        time_table = list()
+        rows = 7
+        cols = 24
+        days_scheduled = 0
+        is_valid = True
+        first_true = 0
+        last_true = 0
+        day_of_the_week = 0
+
+        # 0 to 6 = Sunday to Saturday
+        # 1 to 24 = 7 am to 7 pm
+        # meetup_times[day][time]
+
+        # create the table
+        for _ in xrange(rows):
+            time_table.append([False] * cols)
+
+        # add meetup times info to table
+        for i in meetup_times:
+            day_id = int(i[0])
+            time_id = int(i[1]) - 1
+            time_table[day_id][time_id] = True
+
+        # check if more than one day of the week is scheduled
+        for i in time_table:
+            if True in i:
+                days_scheduled += 1
+
+        if days_scheduled != 1:
+            is_valid = False
+
+        if is_valid:
+            for n, i in enumerate(time_table):
+                if True in i:
+                    day_of_the_week = n
+                    first_true = i.index(True)
+                    last_true = len(i) - i[::-1].index(True) - 1
+                    if i[first_true:last_true+1] == [True] * (last_true - first_true + 1):
+                        is_valid = True
+                    else:
+                        is_valid = False
+                    break
+
+        print first_true, last_true
+        # first_true, last_true
+        # 0 = 7 am, 1 = 7:30 am, ... , 23 = 7 pm
+        if is_valid:
+            start_hour = 7 + first_true / 2
+            start_minute = 30 * (first_true % 2)
+            end_hour = 7 + last_true / 2
+            end_minute = 30 * (last_true % 2)
+
+            if end_minute == 30:
+                end_hour += 1
+                end_minute = 0
+            else:
+                end_minute = 30
+
+
+        if is_valid:
+            return day_of_the_week, start_hour, start_minute, end_hour, end_minute
+        else:
+            return None
+
 class MeetupRequest(models.Model):
     meetup_schedule_id = models.IntegerField()
     member_id = models.IntegerField()
