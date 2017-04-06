@@ -3,18 +3,8 @@
 
 {% block content %}
 <div>
-	<div class = "signupform">
-				<h2>Register</h2>
-				<form action="{% url 'home' %}" method="">
-					{% csrf_token %}
-					<input id="signforms" type="password" name="" value="" placeholder = "Full Name">
-					<br>
-					<input id="signforms" type="text" name="" value="" placeholder = "Username">
-					<br>
-					<input id="signforms" type="password" name="" value="" placeholder = "Password">
-					<br>
-					<button type="submit">Create Account</button>
-				</form>
-			</div>
+	<h1>Register Successful!</h1>
+	<h2> You will now be redirected to the Log in page</h2>
+	<meta http-equiv="refresh" content="3;{% url 'profile' %}" />
 </div>
 {% endblock %}
