@@ -254,6 +254,10 @@ class MeetupRequest(models.Model):
             else:
                 minute = 30
 
+    def reject(self):
+        self.is_attending = -1
+        self.save()
+
     def get_description(self):
         return MeetupSchedule.objects.get(id=self.meetup_schedule_id).description
 
