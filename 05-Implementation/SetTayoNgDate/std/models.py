@@ -225,7 +225,7 @@ class MeetupRequest(models.Model):
         MeetupRequest.objects.get(id=meetup_request_id).delete()
 
     def accept(self):
-        self.is_attending = True
+        self.is_attending = 1
         self.save()
         meetup_schedule = MeetupSchedule.objects.get(id=self.meetup_schedule_id)
         day_of_the_week = datetime.date(meetup_schedule.year, meetup_schedule.month, meetup_schedule.date).isoweekday()
