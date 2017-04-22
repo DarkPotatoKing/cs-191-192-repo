@@ -313,4 +313,5 @@ def accept(request):
         MeetupRequest.objects.filter(member_id=curr_ID).filter(meetup_schedule_id=int(confirm[:-2]))[0].accept()
         return redirect(profile)
     elif confirm[-1]=='0':
+        MeetupRequest.objects.filter(member_id=curr_ID).filter(meetup_schedule_id=int(confirm[:-2]))[0].reject()
         return redirect(profile)
