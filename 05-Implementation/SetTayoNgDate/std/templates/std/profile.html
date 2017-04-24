@@ -4,43 +4,73 @@
 {% block title %}Set Tayo ng Date{% endblock %}
 
 {% block content %}
-<div class="divtable">
+<div class="divbody">
 	<div id="homenav">
 		<h2 style="margin-left:1%;"> Hi, {{name}}</h2>
-		<label class="dropdown" id ="dd1" onclick="changetext1()">&#9660;Meet up requests</label>
+		<label class="dropdown" id ="dd1" onclick="changetext1()">&#9660;Meet Up Requests</label>
 		<input type="checkbox">
 		<!--dagdagan ng if ikaw yung nag request, wag na i-show -->
 		{% if requestTicket%}
 			<div id ="ddmeet">
 			{% for i,j in requestTicket%}
-				Date: {{j.date}}/ {{j.month}} / {{j.year}} <br>
-				
-				Start: {{j.start_hour}} :
-				{% if j.start_minute == 0 %}
-					{{j.start_minute}}0
+				{% if forloop.counter|divisibleby:2%}
+					<div class="meetlist">						<!--gray-->
+					<b>Date:</b> {{j.date}} / {{j.month}} / {{j.year}} <br>
+					
+					<b>Start:</b> {{j.start_hour}} :
+					{% if j.start_minute == 0 %}
+						{{j.start_minute}}0
+					{% else %}
+						{{j.start_minute}}
+					{% endif %}
+					
+					<br><b>End:</b> {{j.end_hour}} : 
+					{% if j.end_minute == 0 %}
+						{{j.end_minute}}0
+					{% else %}
+						{{j.end_minute}}
+					{% endif %}
+					
+					<br><b>Description:</b> {{j.description}}
+					<form action ="{% url 'accept' %}" method="post">
+						{% csrf_token%}
+						<input type="radio" id="confirmMU{{forloop.counter}}" name="confirm" value="{{i.meetup_schedule_id}}_1" class="rgo"><label for="confirmMU{{forloop.counter}}">Going</label>
+						<input type="radio" id="declineMU{{forloop.counter}}" name="confirm" value="{{i.meetup_schedule_id}}_0" class="rngo"><label for="declineMU{{forloop.counter}}">Not Going</label>
+						<button type="submit" class="confng"> Confirm </button>
+					</form>
+					</div>
 				{% else %}
-					{{j.start_minute}}
+					<div class="meetlist2">
+					<b>Date:</b> {{j.date}} / {{j.month}} / {{j.year}} <br>
+					
+					<b>Start:</b> {{j.start_hour}} :
+					{% if j.start_minute == 0 %}
+						{{j.start_minute}}0
+					{% else %}
+						{{j.start_minute}}
+					{% endif %}
+					
+					<br><b>End:</b> {{j.end_hour}} : 
+					{% if j.end_minute == 0 %}
+						{{j.end_minute}}0
+					{% else %}
+						{{j.end_minute}}
+					{% endif %}
+					
+					<br><b>Description:</b> {{j.description}}
+					<form action ="{% url 'accept' %}" method="post">
+						{% csrf_token%}
+						<input type="radio" id="confirmMU{{forloop.counter}}" name="confirm" value="{{i.meetup_schedule_id}}_1" class="rgo"><label for="confirmMU{{forloop.counter}}">Going</label>
+						<input type="radio" id="declineMU{{forloop.counter}}" name="confirm" value="{{i.meetup_schedule_id}}_0" class="rngo"><label for="declineMU{{forloop.counter}}">Not Going</label>
+						<button type="submit" class="confng"> Confirm </button>
+					</form>
+					</div>
 				{% endif %}
-				
-				<br>End: {{j.end_hour}} : 
-				{% if j.end_minute == 0 %}
-					{{j.end_minute}}0
-				{% else %}
-					{{j.end_minute}}
-				{% endif %}
-				
-				<br>Description: {{j.description}}
-				<form action ="{% url 'accept' %}" method="post">
-					{% csrf_token%}
-					Going<input type="radio" id="confirmMU" name="confirm" value="{{i.meetup_schedule_id}}_1">		<!--condition: lagyan ng checked="true" sa kung ano man kapag may napili na si user dun {{i.is_attending}}-->
-					Not Going<input type="radio" id="declineMU" name="confirm" value="{{i.meetup_schedule_id}}_0">
-					<button type="submit"> Confirm </button>
-				</form>
 			{% endfor %}
-			</div>
 		{% else %}
 			<div id ="ddmeet">No meet ups</div>
 		{% endif %}
+			</div>
 		<!--<label class="dropdown" id ="dd2" onclick="changetext2()">&#9660;Contact requests</label>
 		<input type="checkbox">
 		<div id ="ddcontact">No request</div>
@@ -59,8 +89,8 @@
 	</div>
 	
 	<div id="schedtable">
+		<h1>Your Weekly Schedule</h1>
 		<table>
-			<caption> Your Weekly Schedule </caption>
 			<tr>
 				<td id="label">Time</td>
 				<td id="label">Mon</td>
@@ -304,11 +334,11 @@
 	var rightArrow = '\u25b6';
 	var downArrow =  '\u25bc';
 	function changetext1(){
-		if(document.getElementById('dd1').innerHTML == downArrow+'Meet up requests'){
-			document.getElementById('dd1').innerHTML = rightArrow+'Meet up requests';
+		if(document.getElementById('dd1').innerHTML == downArrow+'Meet Up Requests'){
+			document.getElementById('dd1').innerHTML = rightArrow+'Meet Up Requests';
 			document.getElementById('ddmeet').style.display = 'none';
-		} else if (document.getElementById('dd1').innerHTML == rightArrow+'Meet up requests'){
-			document.getElementById('dd1').innerHTML = downArrow+'Meet up requests';
+		} else if (document.getElementById('dd1').innerHTML == rightArrow+'Meet Up Requests'){
+			document.getElementById('dd1').innerHTML = downArrow+'Meet Up Requests';
 			document.getElementById('ddmeet').style.display = 'block';
 		}
 		

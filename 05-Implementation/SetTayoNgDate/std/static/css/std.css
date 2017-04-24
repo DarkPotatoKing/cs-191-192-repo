@@ -5,7 +5,7 @@ body{
 
 main{
 	width: 100%;
-	padding-top: 7.5%;
+	padding-top: 7%;
 }
 
 /*--------------navbar if logged in--------------------*/
@@ -15,6 +15,7 @@ main{
 	position: fixed;			/*adjust body if position will be fixed*/
 	width: 100%;
 	z-index: 100;
+	box-shadow: 0px 2px 3px #bbbbbb;
 }
 
 .nav {
@@ -118,14 +119,15 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 }
 
 .loginform{
+	background-color:#f5f4ff;
 	font-family: arial, sans-serif;
 	color: black;
-	border: 2px solid #0f6fff;
+	border: 2px solid #e1e8ed;
 	margin: 5% 0 3% 0;
 	text-align: center;
 	padding: 0 0 3% 0;
 	border-radius: 8px;
-	box-shadow: 10px 10px 5px #bbbbbb;
+	/*box-shadow: 10px 10px 5px #bbbbbb;*/
 }
 
 .loginform > form > button{
@@ -150,13 +152,14 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 }
 
 .registerform{
+	background-color:#f5f4ff;
 	font-family: arial, sans-serif;
-	border: 2px solid #0f6fff;
+	border: 2px solid #e1e8ed;
 	text-align: center;
 	padding-bottom: 8px;
 	margin-bottom: 23%;
 	border-radius: 8px;
-	box-shadow: 10px 10px 5px #bbbbbb;
+	/*box-shadow: 10px 10px 5px #bbbbbb;*/
 }
 
 .registerform > form > button{
@@ -197,6 +200,7 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	border: 1px solid #cccac0;
 	border-radius: 4px;
 	padding-left: 2%;
+	box-shadow: inset 0px 2px 3px #bbbbbb;
 }
 
 #forms1:focus{
@@ -204,18 +208,37 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	background:white;
 }
 
+#logindiv{
+	background: linear-gradient(#7ea0ff,#0f6fff);
+}
+
+#foot{
+	background-color: #0f6fff;
+}
+
+#foot > a{
+	color: white;
+	font-size: 18px;
+}
 /*---------------------------------------------------*/
 
 /*--------------------home page----------------------*/
+.divbody{
+	background-color: #f5f8fa;
+	padding: 0.2% 0 2% 0;
+}
+
 #homenav{						/*nav div*/			/*also used by profile info field*/
+	font-family: Arial;
 	width:30%;
-	margin-top: 2%;
+	margin-top: 1%;
 	margin-left: 2%;
 	padding-bottom:0.5%;
 	float:left;
 	display:inline-block;
-	border: 2px solid black;
+	border: 2px solid #7cb3f2;
 	border-radius: 3px;
+	background-color:white;
 }
 
 #homenav > form > button{
@@ -225,14 +248,113 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 #homenav input[type=submit]{
 	margin-left:1%;
 }
+/* source: http://viralpatel.net/blogs/css-radio-button-checkbox-background/*/
+#homenav input[type=radio]{
+	display: none;
+	margin: 10px;
+}
+
+.rgo + label{									/*for Going*/
+	font-family: Arial;
+	display:inline-block;
+	margin:-2px;
+	padding: 4px 12px;
+	margin-bottom: 0;
+	margin-top:1%;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 20px;
+	color: #333;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #e6e6e6;
+	border: 1px solid #20d92a;
+	background: linear-gradient(#fff,#e6e6e6);
+
+}
+	
+.rngo + label{						/*for Not Going*/
+	font-family: Arial;
+	display:inline-block;
+	margin:-2px;
+	padding: 4px 12px;
+	margin-bottom: 0;
+	margin-top:1%;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 20px;
+	color: #333;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #e6e6e6;
+	border: 1px solid #f04000;
+	background: linear-gradient(#fff,#e6e6e6);
+	
+}
+
+.rgo:checked + label { 			/*for Going*/
+	background: linear-gradient(#20d92a,#19b023);
+	text-shadow: 0 1px 1px#20d92a;
+	color: white;
+}
+
+.rngo:checked + label{			/*for Not Going*/
+	background: linear-gradient(#f04000,#de3b00);
+	text-shadow: 0 1px 1px #f04000;
+	color: white;
+}
+/*------going or not going buttons--------*/
+
+.confng{							/*confirm button*/
+	float:right;
+	margin-right: 2%;
+	margin-top:0.5%;
+	font-family: Arial;
+	padding: 4px 12px;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 20	px;
+	border-radius: 4px;
+	border: 1px solid #0f6fff;
+}
+
+.confng:hover{
+	background-color:#0f69f0;
+	background: linear-gradient(#7ea0ff,#0f6fff);
+	color: white;
+}
+
+.confng:active{
+	background-color:#0d5dd4;
+	background: linear-gradient(#0f6fff,#0d5dd4);
+	color: white;
+}
 
 #schedtable{					/*table div*/	/*also used by profile table field*/
-	width:62%;
+	width:64%;
 	position: relative;
 	margin-top: 1%;
-	margin-left: 4%;
+	margin-left: 2%;
 	display:inline-block;
-	border: 1px solid black;
+	text-align: center;
+}
+
+#schedtable > h1{				/* table caption*/
+	border: 2px solid #2c94ff; 
+	margin-bottom:0; 
+	margin-top:0; 
+	padding-top:2.5%;
+	padding-bottom: 2.5%;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	background-color: #4c94ff;
+	background: linear-gradient(#7ea0ff,#0f6fff);
+	color:white;
+	font-family: Arial;
 }
 
 #schedtable > table{				/*design ng table*/
@@ -240,9 +362,9 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	font-family: Arial;
 }
 
-#schedtable > table,caption,td{		/*design ng table*/
+#schedtable > table,td{		/*design ng table*/
 	border: 1px solid black;
-	text-align: center;
+	background-color:white;
 }
 
 .schedtableEdit{
@@ -271,7 +393,15 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 #ddmeet{
 	height: 250px;
 	overflow-y:auto;
-	padding-left:1%;
+}
+
+.meetlist{
+	background-color:#e3e3e2;
+	padding: 0 1% 2% 1%;
+}
+
+.meetlist2{
+	padding: 1% 1% 2% 1%;
 }
 
 /*---------------------------------------------------*/
