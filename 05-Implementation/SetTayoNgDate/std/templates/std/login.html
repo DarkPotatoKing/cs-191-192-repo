@@ -9,10 +9,20 @@
 			<p style = "color: white;">put intro about web app here</p>
 		</div>
 		<div class = "forms">
+			{% if messages %}
+				{% for message in messages %}
+					{% if message.tags == "success"%}
+						<div class="{{ message.tags }}"> 
+							<span>&#10004;SUCCESS:</span> 
+							<p>{{ message }}</p>
+						</div>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
 			<div class = "loginform">
 				<h2>Log in</h2>
 				{% if fail == True %}
-				<p>*Username or Password is incorrect</p>
+				<p class="logf" >*Username or Password is incorrect</p>
 				{% else %}
 				<p></p>
 				{% endif %}
@@ -30,9 +40,9 @@
 				<h2> Not yet registered? </h2>
 				<h3>Register now! </h3>
 				{% if passerror == 1 %}
-				<p>*Passwords do not match</p>
+				<p class="logf">*Passwords do not match</p>
 				{% elif passerror == 2 %}
-				<p>*Username already exists, please choose a different one</p>
+				<p class="logf">*Username already exists, please choose a different one</p>
 				{% else %}
 				<p></p>
 				{% endif %}

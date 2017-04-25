@@ -2,10 +2,25 @@
 {% block title %}Create Meet Up{% endblock %}
 
 {% block content %}
-<div>
+<div class="divbody">
 	<div class = "cmuform">
 		<h1>Available Schedules</h1>
 		<h3>Please select consecutive time slots on a single day</h3>
+		{% if messages %}
+			{% for message in messages %}
+				{% if message.tags == "success"%}
+					<div class="{{ message.tags }}"> 
+						<span>&#10004;SUCCESS:</span> 
+						<p>{{ message }}</p>
+					</div>
+				{% elif message.tags == "warning"%}
+					<div class="{{ message.tags }}"> 
+						<span>&#x2716; ERROR:</span> 
+						<p>{{ message }}</p>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
 		<form action="{% url 'savemeetup' %}" method="post">
 			{% csrf_token %}
 			{% load i18n %}
@@ -537,7 +552,7 @@
 
 	<div class="cmubuttons">
 			<p style="margin-bottom:0; text-align:left; font-size:20px; margin-left:7%; font-family:Arial;">Meetup Description:</p>
-			<input type="text" name="description" value="{{ description }}" placeholder="Put description of meeting here" id="forms1" style="margin-bottom:0;">
+			<input type="text" name="description" value="{{ description }}" placeholder="Put description of meeting here" id="mudescription" style="margin-bottom:0;">
 			<br>
 			<input type="hidden" id = "usersmeet" name="usersmeet" value="">
 			<input type="submit" value="Meet Them Up" class="stdbuttons">

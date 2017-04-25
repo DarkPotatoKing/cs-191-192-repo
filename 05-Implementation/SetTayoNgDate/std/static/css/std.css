@@ -15,7 +15,7 @@ main{
 	position: fixed;			/*adjust body if position will be fixed*/
 	width: 100%;
 	z-index: 100;
-	box-shadow: 0px 2px 3px #bbbbbb;
+	box-shadow: 0px 1px 3px #bbbbbb;
 }
 
 .nav {
@@ -100,6 +100,51 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	background-color:#0d59cc;
 	border: 2px solid #0d59cc;
 }
+
+/*messages*/
+.success{
+	font-family: Tahoma, Geneva, sans-serif;
+	background-color: #d4fecc;
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 2%;
+	padding: 10px 0 10px 0;
+	border: 2px solid #bddeb3;
+	border-radius: 4px;
+	text-align: center;
+}
+
+.success > span{
+	font-weight: bold;
+	color: #52bd3a;
+}
+
+.success > p{
+	margin: 0;
+}
+
+.warning{
+	font-family: Tahoma, Geneva, sans-serif;
+	background-color: #eec8c5;
+	width: 90%;
+	margin: 0 auto;
+	margin-bottom: 1%;
+	padding: 10px 0 10px 0;
+	border: 2px solid #d4bfbe;
+	border-radius: 4px;
+	text-align: center;
+}
+
+
+.warning > span{
+	font-weight: bold;
+	color: #b84642;
+}
+
+.warning > p{
+	margin: 0;
+}
+
 /*---------------------------------------------------*/
 
 /*-------------login and register forms-------------------*/
@@ -123,7 +168,7 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	font-family: arial, sans-serif;
 	color: black;
 	border: 2px solid #e1e8ed;
-	margin: 5% 0 3% 0;
+	margin: 3% 0 3% 0;
 	text-align: center;
 	padding: 0 0 3% 0;
 	border-radius: 8px;
@@ -210,21 +255,28 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 
 #logindiv{
 	background: linear-gradient(#7ea0ff,#0f6fff);
+	padding-top: 2%;
 }
 
 #foot{
 	background-color: #0f6fff;
+	padding-top: 0.5%
 }
 
 #foot > a{
 	color: white;
 	font-size: 18px;
 }
+
+.logf{
+	color: #de2e1a;
+	font-weight: bold;
+}
 /*---------------------------------------------------*/
 
 /*--------------------home page----------------------*/
 .divbody{
-	background-color: #f5f8fa;
+	background-color: #f1f2f5;
 	padding: 0.2% 0 2% 0;
 }
 
@@ -236,7 +288,7 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	padding-bottom:0.5%;
 	float:left;
 	display:inline-block;
-	border: 2px solid #7cb3f2;
+	border: 2px solid #f6f7f7;
 	border-radius: 3px;
 	background-color:white;
 }
@@ -363,12 +415,8 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 }
 
 #schedtable > table,td{		/*design ng table*/
-	border: 1px solid black;
+	border: 1px solid #dcdcde;
 	background-color:white;
-}
-
-.schedtableEdit{
-	cursor:pointer;
 }
 
 #schedtime{						/*width ng cell ng time*/			
@@ -384,6 +432,7 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	display:block;
 	color: white;
 	background-color: #0f6fff;
+	border: 1px solid #0e61de;
 }
 
 .dropdown + input{
@@ -391,17 +440,21 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 }
 
 #ddmeet{
-	height: 250px;
+	height: 150px;
 	overflow-y:auto;
+	overflow-x:hidden;
 }
 
-.meetlist{
-	background-color:#e3e3e2;
-	padding: 0 1% 2% 1%;
+#ddatt{
+	height: 150px;
+	overflow-y:auto;
+	overflow-x:hidden;
 }
 
 .meetlist2{
 	padding: 1% 1% 2% 1%;
+	border-bottom: 1px solid black;
+	background-color: #f5f8fa;
 }
 
 /*---------------------------------------------------*/
@@ -463,6 +516,7 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	/*border: 1px black solid;*/
 	width:50%;
 	margin-left:25%;
+	margin-bottom: 3.2%;
 	text-align: center;
 }
 
@@ -470,23 +524,44 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	width: 50%;
 	font-family: arial, sans-serif;
 	color: black;
-	border: 2px solid #0f6fff;
+	border: 2px solid #f6f7f7;
 	margin: 1% 0 2% 25%;
+	overflow-y:auto;
 	text-align: center;
 	padding: 0 0 3% 0;
 	border-radius: 8px;
 	box-shadow: 10px 10px 5px #bbbbbb;
 	height: 300px;
-	overflow-y:auto;
+	background-color:white;
+}
+.list{
+	overflow-y: auto;
+	height:180px;
+}
+.userlist{
+	text-align:left;
+	display: inline-block;
 }
 
 .dayscmu{
 	background: #0f6fff;
+	color:white;
 }
-/*---------------------------------------------------*/
 
-/*----------------------search-----------------------*/
-#addto{
-	display:inline;
+#mudescription{
+	background: #fffdfb;
+	margin-bottom: 8px;
+	height: 30px;
+	width: 85%;
+	font-size: 15px;
+	border: 1px solid #0f6fff;
+	border-radius: 4px;
+	padding-left: 2%;
+	box-shadow: inset 0px 2px 3px #bbbbbb;
+}
+
+#mudescription:focus{
+	box-shadow: 0px 0px 5px #0f6fff;
+	background:white;
 }
 /*---------------------------------------------------*/

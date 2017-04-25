@@ -4,7 +4,7 @@
 {% block title %}Set Tayo ng Date{% endblock %}
 
 {% block content %}
-<div class="divtable">
+<div class="divbody">
 	<div id="homenav">
 		<h2 style="margin-left:1%;"> Hi, {{name}}</h2>
 		<h1 style="text-align:center;">Edit your schedule</h1>
@@ -23,9 +23,9 @@
 		</form>
 	</div>
 	
-	<div id="schedtable" class="schedtableEdit">
+	<div id="schedtable" class ="schedtableEdit">
+		<h1>Your Weekly Schedule</h1>
 		<table>
-			<caption> Your Weekly Schedule </caption>
 			<tr>
 				<td id="label">Time</td>
 				<td id="label">Mon</td>
@@ -282,6 +282,7 @@
 		for (var i=0;i<all.length;i++) {
 			if(all[i].id != "schedtime" && all[i].id != "label"){
 				all[i].onclick = inputClickHandler;
+				all[i].style.cursor = "pointer";
 			}
 		}
 	};

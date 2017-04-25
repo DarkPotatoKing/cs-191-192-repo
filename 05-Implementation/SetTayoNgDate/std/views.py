@@ -24,7 +24,7 @@ from django.shortcuts import render, redirect
 from std.models import *
 import datetime
 from calendar import monthrange, isleap
-
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -39,13 +39,13 @@ def login(request):
     #insert the function here
     #if successful, return index
     #else, return to login page with error
-    error = not (User.authenticate(request.POST.get('uname'), request.POST.get('passw')))
-    if error:
-        return render(request, 'std/login.html', {"fail": True})
-    else:
-        currentUser = User.objects.get(username=request.POST.get('uname'))
-        request.session['curr_ID'] = currentUser.id
-        return redirect(profile)
+	error = not (User.authenticate(request.POST.get('uname'), request.POST.get('passw')))
+	if error:
+		return render(request, 'std/login.html', {'fail': True})
+	else:
+		currentUser = User.objects.get(username=request.POST.get('uname'))
+		request.session['curr_ID'] = currentUser.id
+		return redirect(profile)
 
 def profile(request):
 
@@ -102,7 +102,8 @@ def register(request):
 		return render(request, 'std/login.html', {"passerror": 2})
 	except:
 		User.create(request.POST.get('uname'), request.POST.get('passw'), request.POST.get('identity'))
-	return render(request, 'std/register.html')
+		messages.success(request, 'Registration successful!')
+	return render(request, 'std/login.html')
 
 # def home(request):
 # 	#curr_ID = request.session['curr_ID']
@@ -172,40 +173,40 @@ def editprofile(request):
 	return render(request, 'std/editprofile.html',{'uID': curr_ID, 'sched': toPass, 'name':User.objects.get(id=curr_ID).name})
 
 def saveprofile(request):
-    curr_ID = request.session['curr_ID']
-    currSched = request.POST.get('schedule')
+	curr_ID = request.session['curr_ID']
+	currSched = request.POST.get('schedule')
     
-    try:
-        newSched = currSched.split(',')
-        parsed = []    
-        for i in xrange(len(newSched)):
-            toAppend = []
+	try:
+		newSched = currSched.split(',')
+		parsed = []    
+		for i in xrange(len(newSched)):
+			toAppend = []
             
-            if newSched[i][0] == 'M':
-                toAppend.append(1)
-            elif newSched[i][0] == 'T':
-                toAppend.append(2)
-            elif newSched[i][0] == 'W':
-                toAppend.append(3)
-            elif newSched[i][0] == 'H':
-                toAppend.append(4)
-            elif newSched[i][0] == 'F':
-                toAppend.append(5)
-            elif newSched[i][0] == 'S':
-                toAppend.append(6)
+			if newSched[i][0] == 'M':
+				toAppend.append(1)
+			elif newSched[i][0] == 'T':
+				toAppend.append(2)
+			elif newSched[i][0] == 'W':
+				toAppend.append(3)
+			elif newSched[i][0] == 'H':
+				toAppend.append(4)
+			elif newSched[i][0] == 'F':
+				toAppend.append(5)
+			elif newSched[i][0] == 'S':
+				toAppend.append(6)
 
-            time = int(newSched[i][1:])
-            toAppend.append(time)
-            parsed.append(toAppend)
+			time = int(newSched[i][1:])
+			toAppend.append(time)
+			parsed.append(toAppend)
 
         #use kyle method here
-        Schedule.objects.filter(user_id=curr_ID).delete()
-        for x in xrange(len(newSched)):
-            Schedule.add_sched(curr_ID, parsed[x][0], parsed[x][1])
-
-        return redirect(profile)
-    except:
-        return redirect(profile)
+		Schedule.objects.filter(user_id=curr_ID).delete()
+		for x in xrange(len(newSched)):
+			Schedule.add_sched(curr_ID, parsed[x][0], parsed[x][1])
+		messages.success(request, 'Your schedule has been updated')
+		return redirect(profile)
+	except:
+		return redirect(profile)
 
 
 def logout(request):
@@ -234,84 +235,89 @@ def createmeetup(request):
     return render(request,'std/createmeetup.html', {'names': toPass})
 
 def createmeetup2(request):
-    try:
-        curr_ID = request.session['curr_ID']
-    except:
-        return redirect(index)
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
 
-    toPass = request.POST.getlist('users')
-    for i in xrange(len(toPass)):
-        toPass[i] = int(toPass[i])
-    if len(toPass)==0:
-        return redirect(createmeetup)
-    toPass.append(curr_ID)
-    commonsched = Schedule.find_common_schedules(toPass)
-    return render(request,'std/createmeetup2.html', {'common': commonsched, 'users': toPass})
+	toPass = request.POST.getlist('users')
+	for i in xrange(len(toPass)):
+		toPass[i] = int(toPass[i])
+	if len(toPass)==0:
+		messages.warning(request, 'Please select at least one person to meet up')
+		return redirect(createmeetup)
+	toPass.append(curr_ID)
+	commonsched = Schedule.find_common_schedules(toPass)
+	return render(request,'std/createmeetup2.html', {'common': commonsched, 'users': toPass})
 
 def savemeetup(request):
-    try:
-        curr_ID = request.session['curr_ID']
-    except:
-        return redirect(index)
-    meetUps = request.POST.getlist('schedtomeet')
-    userList = request.POST.get('usersmeet')
-    userList = userList.split(',')
-    description = request.POST.get('description')
-    for i in userList:
-        i = int(i)
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
+	meetUps = request.POST.getlist('schedtomeet')
+	userList = request.POST.get('usersmeet')
+	userList = userList.split(',')
+	description = request.POST.get('description')
+	for i in userList:
+		i = int(i)
 
-    scheds = []
-    for i in xrange(len(meetUps)):
-        toAppend = []
-        if meetUps[i][0] == 'M':
-            toAppend.append(1)
-        elif meetUps[i][0] == 'T':
-            toAppend.append(2)
-        elif meetUps[i][0] == 'W':
-            toAppend.append(3)
-        elif meetUps[i][0] == 'H':
-            toAppend.append(4)
-        elif meetUps[i][0] == 'F':
-            toAppend.append(5)
-        elif meetUps[i][0] == 'S':
-            toAppend.append(6)
-        toAppend.append(int(meetUps[i][1:]))
-        scheds.append(toAppend)
+	scheds = []
+	for i in xrange(len(meetUps)):
+		toAppend = []
+		if meetUps[i][0] == 'M':
+			toAppend.append(1)
+		elif meetUps[i][0] == 'T':
+			toAppend.append(2)
+		elif meetUps[i][0] == 'W':
+			toAppend.append(3)
+		elif meetUps[i][0] == 'H':
+			toAppend.append(4)
+		elif meetUps[i][0] == 'F':
+			toAppend.append(5)
+		elif meetUps[i][0] == 'S':
+			toAppend.append(6)
+		toAppend.append(int(meetUps[i][1:]))
+		scheds.append(toAppend)
     
-    toSave = MeetupSchedule.parse_table(scheds)
-    if toSave == None:
-        commonsched = Schedule.find_common_schedules(userList)
-        return render(request, 'std/createmeetup2.html', {'common': commonsched, 'users': userList, 'error': 1})
-    else:
-        currYear = datetime.date.today().year
-        currMonth = datetime.date.today().month
-        currDay = datetime.date.today().day
-        dayOfTheWeek = datetime.date.today().weekday()+1%7
+	toSave = MeetupSchedule.parse_table(scheds)
+	if toSave == None:
+		commonsched = Schedule.find_common_schedules(userList)
+		messages.warning(request, 'Please follow instructions')
+		return render(request, 'std/createmeetup2.html', {'common': commonsched, 'users': userList, 'error': 1})
+	else:
+		currYear = datetime.date.today().year
+		currMonth = datetime.date.today().month
+		currDay = datetime.date.today().day
+		dayOfTheWeek = datetime.date.today().weekday()+1%7
 
-        addDay =(scheds[0][0]-dayOfTheWeek)%7
-        if addDay==0:
-            addDay=7
-        meetUpDate = (currDay+addDay)%monthrange(currYear, currMonth)[1]
-        meetUpMonth = currMonth
-        if meetUpDate < currDay:
-            meetUpMonth+=1 if currMonth<12 else 1
-        meetUpYear = currYear if meetUpMonth >= currMonth else currYear+1
-        MeetupSchedule.add_meetup_sched(curr_ID, meetUpDate, meetUpMonth, meetUpYear, toSave[1], toSave[2], toSave[3], toSave[4],description)
-        for x in xrange(len(userList)):
-            MeetupRequest.add_meetup_request(MeetupSchedule.objects.latest('id').id, userList[x])
-        return redirect(profile)
+		addDay =(scheds[0][0]-dayOfTheWeek)%7
+		if addDay==0:
+			addDay=7
+		meetUpDate = (currDay+addDay)%monthrange(currYear, currMonth)[1]
+		meetUpMonth = currMonth
+		if meetUpDate < currDay:
+			meetUpMonth+=1 if currMonth<12 else 1
+		meetUpYear = currYear if meetUpMonth >= currMonth else currYear+1
+		MeetupSchedule.add_meetup_sched(curr_ID, meetUpDate, meetUpMonth, meetUpYear, toSave[1], toSave[2], toSave[3], toSave[4],description)
+		for x in xrange(len(userList)):
+			MeetupRequest.add_meetup_request(MeetupSchedule.objects.latest('id').id, userList[x])
+		messages.success(request, 'Create Meet Up Successful')
+		return redirect(profile)
 
 def accept(request):
-    try:
-        curr_ID = request.session['curr_ID']
-    except:
-        return redirect(index)
-    confirm = request.POST.get('confirm')
-    if confirm == None:
-        return redirect(profile)
-    if confirm[-1]=='1':
-        MeetupRequest.objects.filter(member_id=curr_ID).filter(meetup_schedule_id=int(confirm[:-2]))[0].accept()
-        return redirect(profile)
-    elif confirm[-1]=='0':
-        MeetupRequest.objects.filter(member_id=curr_ID).filter(meetup_schedule_id=int(confirm[:-2]))[0].reject()
-        return redirect(profile)
+	try:
+		curr_ID = request.session['curr_ID']
+	except:
+		return redirect(index)
+	confirm = request.POST.get('confirm')
+	if confirm == None:
+		return redirect(profile)
+	if confirm[-1]=='1':
+		MeetupRequest.objects.filter(member_id=curr_ID).filter(meetup_schedule_id=int(confirm[:-2]))[0].accept()
+		messages.success(request, 'You have just confirmed your ATTENDANCE to a meeting')
+		return redirect(profile)
+	elif confirm[-1]=='0':
+		MeetupRequest.objects.filter(member_id=curr_ID).filter(meetup_schedule_id=int(confirm[:-2]))[0].reject()
+		messages.success(request, 'You have just confirmed your ABSENCE to a meeting')
+		return redirect(profile)

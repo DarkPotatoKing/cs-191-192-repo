@@ -7,56 +7,40 @@
 <div class="divbody">
 	<div id="homenav">
 		<h2 style="margin-left:1%;"> Hi, {{name}}</h2>
+		{% if messages %}
+			{% for message in messages %}
+				{% if message.tags == "success"%}
+					<div class="{{ message.tags }}"> 
+						<span>&#10004;SUCCESS:</span> 
+						<p>{{ message }}</p>
+					</div>
+				{% endif %}
+			{% endfor %}
+		{% endif %}
 		<label class="dropdown" id ="dd1" onclick="changetext1()">&#9660;Meet Up Requests</label>
 		<input type="checkbox">
 		<!--dagdagan ng if ikaw yung nag request, wag na i-show -->
 		{% if requestTicket%}
 			<div id ="ddmeet">
 			{% for i,j in requestTicket%}
-				{% if forloop.counter|divisibleby:2%}
-					<div class="meetlist">						<!--gray-->
-					<b>Date:</b> {{j.date}} / {{j.month}} / {{j.year}} <br>
-					
-					<b>Start:</b> {{j.start_hour}} :
-					{% if j.start_minute == 0 %}
-						{{j.start_minute}}0
-					{% else %}
-						{{j.start_minute}}
-					{% endif %}
-					
-					<br><b>End:</b> {{j.end_hour}} : 
-					{% if j.end_minute == 0 %}
-						{{j.end_minute}}0
-					{% else %}
-						{{j.end_minute}}
-					{% endif %}
-					
-					<br><b>Description:</b> {{j.description}}
-					<form action ="{% url 'accept' %}" method="post">
-						{% csrf_token%}
-						<input type="radio" id="confirmMU{{forloop.counter}}" name="confirm" value="{{i.meetup_schedule_id}}_1" class="rgo"><label for="confirmMU{{forloop.counter}}">Going</label>
-						<input type="radio" id="declineMU{{forloop.counter}}" name="confirm" value="{{i.meetup_schedule_id}}_0" class="rngo"><label for="declineMU{{forloop.counter}}">Not Going</label>
-						<button type="submit" class="confng"> Confirm </button>
-					</form>
-					</div>
-				{% else %}
+				{% if i.is_attending == 0%}
 					<div class="meetlist2">
 					<b>Date:</b> {{j.date}} / {{j.month}} / {{j.year}} <br>
-					
+						
 					<b>Start:</b> {{j.start_hour}} :
 					{% if j.start_minute == 0 %}
 						{{j.start_minute}}0
 					{% else %}
 						{{j.start_minute}}
 					{% endif %}
-					
+						
 					<br><b>End:</b> {{j.end_hour}} : 
 					{% if j.end_minute == 0 %}
 						{{j.end_minute}}0
 					{% else %}
 						{{j.end_minute}}
 					{% endif %}
-					
+						
 					<br><b>Description:</b> {{j.description}}
 					<form action ="{% url 'accept' %}" method="post">
 						{% csrf_token%}
@@ -67,14 +51,42 @@
 					</div>
 				{% endif %}
 			{% endfor %}
+			</div>
 		{% else %}
 			<div id ="ddmeet">No meet ups</div>
 		{% endif %}
-			</div>
-		<!--<label class="dropdown" id ="dd2" onclick="changetext2()">&#9660;Contact requests</label>
+		<label class="dropdown" id ="dd2" onclick="changetext2()">&#9660;Meetings to Attend</label>
 		<input type="checkbox">
-		<div id ="ddcontact">No request</div>
-		<label class="dropdown" id ="dd3" onclick="changetext3()">&#9660;Your Contacts</label>
+		{% if requestTicket%}
+			<div id ="ddatt">
+			{% for i,j in requestTicket%}
+				{% if i.is_attending == 1%}
+					<div class="meetlist2">
+						<b>Date:</b> {{j.date}} / {{j.month}} / {{j.year}} <br>
+						
+						<b>Start:</b> {{j.start_hour}} :
+						{% if j.start_minute == 0 %}
+							{{j.start_minute}}0
+						{% else %}
+							{{j.start_minute}}
+						{% endif %}
+						
+						<br><b>End:</b> {{j.end_hour}} : 
+						{% if j.end_minute == 0 %}
+							{{j.end_minute}}0
+						{% else %}
+							{{j.end_minute}}
+						{% endif %}
+						
+						<br><b>Description:</b> {{j.description}}
+					</div>
+				{% endif %}
+			{% endfor %}
+			</div>
+		{% else %}
+			<div id ="ddatt">You have no meetings to attend to</div>
+		{% endif %}
+		<!--<label class="dropdown" id ="dd3" onclick="changetext3()">&#9660;Your Contacts</label>
 		<input type="checkbox">
 		<div id ="ddyours">No contact</div>-->
 		<form action="{% url 'editprofile' %}">
@@ -346,12 +358,12 @@
 	
 	//show/hide and change text of contact requests
 	function changetext2(){
-		if(document.getElementById('dd2').innerHTML == downArrow+'Contact requests'){
-			document.getElementById('dd2').innerHTML = rightArrow+'Contact requests';
-			document.getElementById('ddcontact').style.display = 'none';
-		} else if (document.getElementById('dd2').innerHTML == rightArrow+'Contact requests'){
-			document.getElementById('dd2').innerHTML = downArrow+'Contact requests';
-			document.getElementById('ddcontact').style.display = 'block';
+		if(document.getElementById('dd2').innerHTML == downArrow+'Meetings to Attend'){
+			document.getElementById('dd2').innerHTML = rightArrow+'Meetings to Attend';
+			document.getElementById('ddatt').style.display = 'none';
+		} else if (document.getElementById('dd2').innerHTML == rightArrow+'Meetings to Attend'){
+			document.getElementById('dd2').innerHTML = downArrow+'Meetings to Attend';
+			document.getElementById('ddatt').style.display = 'block';
 		}
 	}
 	

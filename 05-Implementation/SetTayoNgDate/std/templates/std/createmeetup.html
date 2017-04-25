@@ -2,15 +2,34 @@
 {% block title %}Create Meet Up{% endblock %}
 
 {% block content %}
-<div>
+<div class = "divbody">
 			{% if names%}
 				<div class = "cmuform">
 				<h1>List of Contacts</h1>
+				{% if messages %}
+					{% for message in messages %}
+						{% if message.tags == "success"%}
+							<div class="{{ message.tags }}"> 
+								<span>&#10004;SUCCESS:</span> 
+								<p>{{ message }}</p>
+							</div>
+						{% elif message.tags == "warning"%}
+							<div class="{{ message.tags }}"> 
+								<span>&#x2716; ERROR:</span> 
+								<p>{{ message }}</p>
+							</div>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
 				<form action="{% url 'createmeetup2' %}" method="post">
 				{% csrf_token %}
+				<div class="list">
+				<div class="userlist">
 				{% for i in names%}
-					{{ i.1 }} <input type="checkbox" name="users" value="{{ i.0 }}"> <br>
+					<input type="checkbox" name="users" value="{{ i.0 }}"> {{ i.1 }} <br>
 				{% endfor %}
+				</div>
+				</div>
 				</div>
 				<div class="cmubuttons">
 					<input type="submit" value="Next Step" class="stdbuttons">
