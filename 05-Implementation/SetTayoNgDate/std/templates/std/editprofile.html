@@ -7,7 +7,7 @@
 <div class="divbody">
 	<div id="homenav">
 		<h2 style="margin-left:1%;"> Hi, {{name}}</h2>
-		<h1 style="text-align:center;">Edit your schedule</h1>
+		<h2 style="text-align:center;">Click a schedule to mark it as unavailable</h2>
 		<form action="{% url 'saveprofile' %}" method="post">				<!--gawing method=post-->
 			{% csrf_token %}
 			<!--<input id="forms1" type="text" name="" value="" placeholder = "Name">
@@ -24,7 +24,13 @@
 	</div>
 	
 	<div id="schedtable" class ="schedtableEdit">
-		<h1>Your Weekly Schedule</h1>
+		<div id = "tableheader">
+			<h1>Your Weekly Schedule</h1>
+			<div id="legendscont">
+				<div class="legend white"></div><p>Free time</p>
+				<div class="legend red"></div><p>Unavailable time</p>
+			</div>
+		</div>
 		<table>
 			<tr>
 				<td id="label">Time</td>
@@ -270,7 +276,7 @@
 	
 	//color the table
 		for(var i=0;i<array.length;i++){
-			document.getElementById(array[i]).style.backgroundColor = "#f00";
+			document.getElementById(array[i]).style.backgroundColor = "#bf151d";
 		}
 	}
 	else{	//if wala pang sched user
@@ -290,13 +296,13 @@
 	function inputClickHandler(e){
 		e = e||window.event;
 		var tdElm = e.target||e.srcElement;
-		if(tdElm.style.backgroundColor == 'rgb(255, 0, 0)'){
+		if(tdElm.style.backgroundColor == 'rgb(191, 21, 29)'){
 			tdElm.style.backgroundColor = '#fff';
 			array = array.filter(item => item!==tdElm.id);	//remove from array
 			array.join()
 			document.getElementById('schedule').value=array;
 		} else {
-			tdElm.style.backgroundColor = '#f00';
+			tdElm.style.backgroundColor = '#bf151d';
 			array.push(tdElm.id);		//add to array
 			array.join()
 			document.getElementById('schedule').value=array;

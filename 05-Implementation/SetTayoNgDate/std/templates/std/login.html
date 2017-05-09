@@ -5,8 +5,9 @@
 {% block content %}
 <div id = "logindiv">
 		<div class = "info">
-			<h1 style = "color: white;">Welcome to Set Tayo ng Date!</h1>
-			<p style = "color: white;">put intro about web app here</p>
+			<h1>Welcome to Set Tayo ng Date!</h1>
+			<p>Meet up with your friends, classmates, and colleagues easily.</p>
+			<p>Find common free time with people and set a meeting with them.</p>
 		</div>
 		<div class = "forms">
 			{% if messages %}
@@ -26,7 +27,7 @@
 				{% else %}
 				<p></p>
 				{% endif %}
-				<form action="{% url 'login' %}" method="post">
+				<form action="{% url 'login' %}" method="post" autocomplete="off">
 					{% csrf_token %}
 					<input id="forms1" type="text" name="uname" value="{{ uname }}" placeholder = "Username">
 					<br>
@@ -46,7 +47,7 @@
 				{% else %}
 				<p></p>
 				{% endif %}
-				<form action="{% url 'register' %}" method="post">
+				<form action="{% url 'register' %}" method="post" autocomplete="off">
 					{% csrf_token %}
 					<input id="forms1" type="text" name="uname" value="{{ uname }}" placeholder = "Username">
 					<br>

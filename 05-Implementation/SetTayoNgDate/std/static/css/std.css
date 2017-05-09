@@ -58,6 +58,7 @@ main{
 
 #bannertitle h1{
 	font-size:80px;
+	font-family: arial, sans-serif;
 	padding: 0;
 	margin: 0;
 	width: 100%;
@@ -153,6 +154,16 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	display: inline-block;
 	padding-left: 7%;
 	position: absolute;
+	color:white;
+	font-family: arial, sans-serif;
+}
+
+.info > h1{
+	font-size: 40px;
+}
+
+.info > p {
+	font-size: 20px;
 }
 
 .forms{
@@ -288,7 +299,7 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	padding-bottom:0.5%;
 	float:left;
 	display:inline-block;
-	border: 2px solid #f6f7f7;
+	border: 2px solid #e6ecf0;
 	border-radius: 3px;
 	background-color:white;
 }
@@ -395,18 +406,48 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	text-align: center;
 }
 
-#schedtable > h1{				/* table caption*/
+#tableheader{
 	border: 2px solid #2c94ff; 
-	margin-bottom:0; 
-	margin-top:0; 
-	padding-top:2.5%;
-	padding-bottom: 2.5%;
+	/*padding-top:2.5%;*/
+	padding-bottom: 1%;
 	border-top-left-radius: 8px;
 	border-top-right-radius: 8px;
 	background-color: #4c94ff;
 	background: linear-gradient(#7ea0ff,#0f6fff);
 	color:white;
 	font-family: Arial;
+}
+
+#tableheader > h1{
+	margin-bottom:0.5%;
+}
+
+#legendscont{
+	margin: auto;
+	text-align:left;
+	width: 20%;
+}
+
+#legendscont > p{
+	margin: 0;
+}
+
+.legend {
+  float: left;
+  width: 20px;
+  height: 10px;
+  margin: 1.5% 2% 0 0;
+  border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.white {
+  background: white;
+  border: 1px solid #f9f7f7;
+}
+
+.red {
+  background: #bf151d;
+  border: 1px solid #a01319; 
 }
 
 #schedtable > table{				/*design ng table*/
@@ -524,19 +565,25 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 	width: 50%;
 	font-family: arial, sans-serif;
 	color: black;
-	border: 2px solid #f6f7f7;
+	border: 2px solid #e6ecf0;
 	margin: 1% 0 2% 25%;
 	overflow-y:auto;
 	text-align: center;
 	padding: 0 0 3% 0;
 	border-radius: 8px;
-	box-shadow: 10px 10px 5px #bbbbbb;
+	box-shadow: 5px 5px 20px #bbbbbb;
 	height: 300px;
 	background-color:white;
 }
+
+#messagecmucont{
+	width: 50%;
+	margin: 1% 0 0% 25.5%;
+}
+
 .list{
 	overflow-y: auto;
-	height:180px;
+	height:240px;
 }
 .userlist{
 	text-align:left;
@@ -563,5 +610,10 @@ input[type=submit], button[type=submit]{	/*all clickable buttons -> change mouse
 #mudescription:focus{
 	box-shadow: 0px 0px 5px #0f6fff;
 	background:white;
+}
+
+.nonefree{
+	color: #999594;
+	margin-left: 3.5%;
 }
 /*---------------------------------------------------*/

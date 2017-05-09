@@ -4,23 +4,27 @@
 {% block content %}
 <div class = "divbody">
 			{% if names%}
-				<div class = "cmuform">
-				<h1>List of Contacts</h1>
 				{% if messages %}
 					{% for message in messages %}
 						{% if message.tags == "success"%}
-							<div class="{{ message.tags }}"> 
-								<span>&#10004;SUCCESS:</span> 
-								<p>{{ message }}</p>
+							<div id="messagecmucont">
+								<div class="{{ message.tags }}"> 
+									<span>&#10004;SUCCESS:</span> 
+									<p>{{ message }}</p>
+								</div>
 							</div>
 						{% elif message.tags == "warning"%}
-							<div class="{{ message.tags }}"> 
-								<span>&#x2716; ERROR:</span> 
-								<p>{{ message }}</p>
+							<div id="messagecmucont">
+								<div class="{{ message.tags }}"> 
+									<span>&#x2716; ERROR:</span> 
+									<p>{{ message }}</p>
+								</div>
 							</div>
 						{% endif %}
 					{% endfor %}
 				{% endif %}
+				<div class = "cmuform">
+				<h1>List of Contacts</h1>
 				<form action="{% url 'createmeetup2' %}" method="post">
 				{% csrf_token %}
 				<div class="list">

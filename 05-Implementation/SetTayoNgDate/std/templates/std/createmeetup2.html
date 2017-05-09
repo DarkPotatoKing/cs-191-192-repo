@@ -27,7 +27,6 @@
 			<h2 class ="dayscmu" >MONDAY</h2>
 			{% for i in common%}
 				{% for j in i%}
-					{% if not j %}
 						{% if forloop.counter == 2 %}
 							{% trans "Monday" as day %}
 							{% trans "M" as daycode %}
@@ -106,15 +105,17 @@
 							{% trans "24" as timecode %}
 						{% endif %}
 						{%if forloop.counter == 2 %}
-							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+							{% if not j %}
+								 <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> {{ time }} <br>
+							{% else %}
+								<span class="nonefree">{{time}} </span><br>
+							{% endif %}	
 						{% endif %}
-					{% endif %}
 				{% endfor %}
 			{% endfor %}
 			<h2 class ="dayscmu">TUESDAY</h2>
 			{% for i in common%}
 				{% for j in i%}
-					{% if not j %}
 						{% if forloop.counter == 3 %}
 							{% trans "Tuesday" as day %}
 							{% trans "T" as daycode %}
@@ -193,15 +194,17 @@
 							{% trans "24" as timecode %}
 						{% endif %}
 						{%if forloop.counter == 3 %}
-							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+							{% if not j %}
+								<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> {{ time }} <br>
+							{% else %}
+								<span class="nonefree">{{time}} </span><br>
+							{% endif %}	
 						{% endif %}
-					{% endif %}
 				{% endfor %}
 			{% endfor %}
 			<h2 class ="dayscmu">WEDNESDAY</h2>
 			{% for i in common%}
 				{% for j in i%}
-					{% if not j %}
 						{% if forloop.counter == 4 %}
 							{% trans "Wednesday" as day %}
 							{% trans "W" as daycode %}
@@ -280,15 +283,17 @@
 							{% trans "24" as timecode %}
 						{% endif %}
 						{%if forloop.counter == 4 %}
-							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+							{% if not j %}
+								<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> {{ time }} <br>
+							{% else %}
+								<span class="nonefree">{{time}} </span><br>
+							{% endif %}	
 						{% endif %}
-					{% endif %}
 				{% endfor %}
 			{% endfor %}
 			<h2 class ="dayscmu">THURSDAY</h2>
 			{% for i in common%}
 				{% for j in i%}
-					{% if not j %}
 						{% if forloop.counter == 5 %}
 							{% trans "Thursday" as day %}
 							{% trans "H" as daycode %}
@@ -367,15 +372,17 @@
 							{% trans "24" as timecode %}
 						{% endif %}
 						{%if forloop.counter == 5 %}
-							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+							{% if not j %}
+								<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> {{ time }} <br>
+							{% else %}
+								<span class="nonefree">{{time}} </span><br>
+							{% endif %}	
 						{% endif %}
-					{% endif %}
 				{% endfor %}
 			{% endfor %}
 			<h2 class ="dayscmu">FRIDAY</h2>
 			{% for i in common%}
 				{% for j in i%}
-					{% if not j %}
 						{% if forloop.counter == 6 %}
 							{% trans "Friday" as day %}
 							{% trans "F" as daycode %}
@@ -454,15 +461,17 @@
 							{% trans "24" as timecode %}
 						{% endif %}
 						{%if forloop.counter == 6 %}
-							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+							{% if not j %}
+								<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> {{ time }} <br>
+							{% else %}
+								<span class="nonefree">{{time}} </span><br>
+							{% endif %}	
 						{% endif %}
-					{% endif %}
 				{% endfor %}
 			{% endfor %}
 			<h2 class ="dayscmu">SATURDAY</h2>
 			{% for i in common%}
 				{% for j in i%}
-					{% if not j %}
 						{% if forloop.counter == 7 %}
 							{% trans "Saturday" as day %}
 							{% trans "S" as daycode %}
@@ -541,9 +550,12 @@
 							{% trans "24" as timecode %}
 						{% endif %}
 						{%if forloop.counter == 7 %}
-							{{ time }} <input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> <br>
+							{% if not j %}
+								<input type="checkbox" name="schedtomeet" value="{{daycode}}{{timecode}}"> {{ time }} <br>
+							{% else %}
+								<span class="nonefree">{{time}} </span><br>
+							{% endif %}	
 						{% endif %}
-					{% endif %}
 				{% endfor %}
 			{% endfor %}
 
@@ -552,7 +564,7 @@
 
 	<div class="cmubuttons">
 			<p style="margin-bottom:0; text-align:left; font-size:20px; margin-left:7%; font-family:Arial;">Meetup Description:</p>
-			<input type="text" name="description" value="{{ description }}" placeholder="Put description of meeting here" id="mudescription" style="margin-bottom:0;">
+			<input type="text" name="description" value="{{ description }}" placeholder="Put description of meeting here" id="mudescription" autocomplete="off" style="margin-bottom:0;">
 			<br>
 			<input type="hidden" id = "usersmeet" name="usersmeet" value="">
 			<input type="submit" value="Meet Them Up" class="stdbuttons">

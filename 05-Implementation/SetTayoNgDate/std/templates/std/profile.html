@@ -90,7 +90,7 @@
 		<input type="checkbox">
 		<div id ="ddyours">No contact</div>-->
 		<form action="{% url 'editprofile' %}">
-			<input type="submit" value="Edit Profile" class="stdbuttons">
+			<input type="submit" value="Edit Schedule" class="stdbuttons">
 		</form>
 		<form action="{% url 'createmeetup' %}" method="">
 			<input type="submit" value="Create Meet Up Schedule" class="stdbuttons">
@@ -101,7 +101,13 @@
 	</div>
 	
 	<div id="schedtable">
-		<h1>Your Weekly Schedule</h1>
+		<div id = "tableheader">
+			<h1>Your Weekly Schedule</h1>
+			<div id="legendscont">
+				<div class="legend white"></div><p>Free time</p>
+				<div class="legend red"></div><p>Unavailable time</p>
+			</div>
+		</div>
 		<table>
 			<tr>
 				<td id="label">Time</td>
@@ -340,7 +346,7 @@
 		
 		//color the table
 		for(var i=0;i<array.length;i++){
-			document.getElementById(array[i]).style.backgroundColor = "#f00";
+			document.getElementById(array[i]).style.backgroundColor = "#bf151d";
 		}
 	}
 	var rightArrow = '\u25b6';
